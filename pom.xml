@@ -117,5 +117,6 @@
 
 	<modules>
 		<module>corn-eureka</module>
+		<module>corn-gateway</module>
 	</modules>
 </project>

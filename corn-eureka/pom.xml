@@ -9,6 +9,8 @@
 	</parent>
 	<artifactId>corn-eureka</artifactId>
 
+	<description>corn服务治理</description>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
