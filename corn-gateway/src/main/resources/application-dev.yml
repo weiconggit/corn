@@ -10,6 +10,8 @@ spring:
             locator:
                # 默认为 false，为 true 便开启通过服务中心的自动根据 serviceId 创建路由的功能
                enabled: true
+               # 将 serviceid 转为小写
+               lowerCaseServiceId: true
          # 路由规则
          routes:
          # 自定义的路由ID，保持唯一
@@ -21,6 +23,8 @@ spring:
             - Path=/user/**
             # 过滤规则
             filters:
+            # 将 gateway/serviceid/user/** 中的user去除
+            - StripPrefix=1
             # 限流设置，名称必须是 RequestRateLimiter
             - name: RequestRateLimiter
               args:

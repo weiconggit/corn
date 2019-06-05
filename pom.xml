@@ -50,6 +50,12 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>${swagger.version}</version>
 		</dependency>
+		<!-- 热部署 application中可配置监听文件位置 -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional> 这个需要为 true 热部署才有效
+		</dependency> -->
 	</dependencies>
 
 	<dependencyManagement>
