@@ -5,6 +5,7 @@
 *.svn
 *_svn
 */.classpath/*
+*.prefs
 
 # Log file
 *.log
