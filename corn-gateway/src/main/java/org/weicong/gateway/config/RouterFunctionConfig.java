@@ -11,7 +11,7 @@ import org.weicong.gateway.handler.HystrixFallbackHandler;
 import lombok.AllArgsConstructor;
 
 /**
- * @description
+ * @description 熔断降级路由器
  * @author weicong
  * @date 2019年6月5日 下午7:25:45
  * @version 1.0

@@ -12,7 +12,6 @@ spring:
                enabled: true
                # 将 serviceid 转为小写
                lowerCaseServiceId: true
-         # 路由规则
          routes:
          # 自定义的路由ID，保持唯一
          -  id: corn-user

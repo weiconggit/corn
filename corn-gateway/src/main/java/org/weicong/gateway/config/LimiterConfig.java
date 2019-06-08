@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import reactor.core.publisher.Mono;
 
 /**
- * @description redis根据ip限流
+ * @description 使用 redis 根据 ip 限流
  * @author weicong
  * @date 2019年6月3日 下午18:20:47
  * @version 1.0

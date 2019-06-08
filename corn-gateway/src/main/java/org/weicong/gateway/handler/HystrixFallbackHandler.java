@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 /**
- * @description
+ * @description 熔断降级处理器
  * @author weicong
  * @date 2019年6月3日 下午6:25:12
  * @version 1.0
