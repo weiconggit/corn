@@ -1,4 +1,4 @@
-# Corn / 主要功用
+# CORN  
 Spring Cloud Basic Framework / 小企业级微服务基础框架
 
 ### Preparation for the Project / 项目准备  
@@ -18,9 +18,9 @@ Spring Cloud Basic Framework / 小企业级微服务基础框架
   
 ### Project Structure / 项目结构  
 > corn  
-> ​	|-- corn-common  --  common serivce jar / 公共服务jar包  
-> ​	|-- corn-gateway  --  gateway / 网关路由  
-> ​	|-- corn-eureka  --  microservices  govern / 服务治理  
->  	|-- corn-uas--  user authority system / 用户权限系统  
-> ​		|-- corn-uas-api  --  uas api / uas 对外服务  
-> ​		|-- corn-uas-biz  --  uas bussiness / uas 核心业务  
+>   |-- corn-common  --  common serivce jar / 公共服务jar包  
+>   |-- corn-gateway  --  gateway / 网关路由  
+>   |-- corn-eureka  --  microservices  govern / 服务治理  
+>   |-- corn-uas--  user authority system / 用户权限系统  
+>       |-- corn-uas-api  --  uas api / uas 对外服务  
+>       |-- corn-uas-biz  --  uas bussiness / uas 核心业务  
