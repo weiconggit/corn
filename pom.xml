@@ -125,5 +125,6 @@
 		<module>corn-eureka</module>
 		<module>corn-gateway</module>
 		<module>corn-uas</module>
+		<module>corn-common</module>
 	</modules>
 </project>
