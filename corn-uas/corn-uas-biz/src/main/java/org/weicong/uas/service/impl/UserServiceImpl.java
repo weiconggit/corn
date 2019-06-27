@@ -1,7 +1,11 @@
 package org.weicong.uas.service.impl;
 
 import org.springframework.stereotype.Service;
-import org.weicong.uas.service.UserSerivce;
+import org.weicong.uas.entity.SysUser;
+import org.weicong.uas.mapper.UserMapper;
+import org.weicong.uas.service.UserService;
+
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 /**
  * @description 
@@ -10,39 +14,7 @@ import org.weicong.uas.service.UserSerivce;
  * @version 1.0
  */
 @Service
-public class UserServiceImpl implements UserSerivce{
-
-	@Override
-	public String save() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String edit() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String list() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String get() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String del() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
+public class UserServiceImpl extends ServiceImpl<UserMapper, SysUser> implements UserService{
 
 	
 }

@@ -4,14 +4,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @description
+ * @description 
  * @author weicong
- * @date 2019年6月10日
+ * @date 2019年6月27日
  * @version 1.0
  */
 @RestController
-@RequestMapping("user/")
-public class UserController {
+@RequestMapping("menu/")
+public class MenuController {
 
-	
 }

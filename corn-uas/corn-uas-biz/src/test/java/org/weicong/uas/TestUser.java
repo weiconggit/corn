@@ -5,7 +5,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.weicong.uas.service.UserSerivce;
+import org.weicong.uas.service.UserService;
 
 /**
  * @description 
@@ -18,11 +18,11 @@ import org.weicong.uas.service.UserSerivce;
 public class TestUser {
 
 	@Autowired
-	private UserSerivce userSerivce;
+	private UserService userSerivce;
 	
 	@Test
 	public void testService() {
-		String string = userSerivce.save();
-		System.out.println("string is : " + string);
+//		String string = userSerivce.save();
+//		System.out.println("string is : " + string);
 	}
 }
