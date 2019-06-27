@@ -1,8 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-	org.weicong.common.base.exception.GlobalExceptionHandler,\
-	org.weicong.common.base.config.Swagger2Config,\
-	org.weicong.common.base.config.MybatisPlusConfig,\
-	org.weicong.common.base.config.WebConfig,\
-	org.weicong.common.base.config.RedisConfig,\
-	org.weicong.common.base.thread.ThreadPoolConfig,\
-	org.weicong.common.base.thread.AsyncService
