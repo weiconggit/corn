@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono;
 /**
  * @description 使用 redis 根据 ip 限流
  * @author weicong
- * @date 2019年6月3日 下午18:20:47
+ * @date 2019年6月3日
  * @version 1.0
  */
 @Configuration

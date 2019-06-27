@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * @description
  * @author weicong
- * @date 2019年6月10日 上午12:30:19
+ * @date 2019年6月10日
  * @version 1.0
  */
 @RestController

@@ -3,7 +3,7 @@ package org.weicong.uas.service;
 /**
  * @description 
  * @author weicong
- * @date 2019年6月10日 下午12:50:20
+ * @date 2019年6月10日
  * @version 1.0
  */
 public interface UserSerivce {

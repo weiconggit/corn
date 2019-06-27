@@ -6,7 +6,7 @@ import org.weicong.uas.service.UserSerivce;
 /**
  * @description 
  * @author weicong
- * @date 2019年6月10日 下午1:03:13
+ * @date 2019年6月10日
  * @version 1.0
  */
 @Service

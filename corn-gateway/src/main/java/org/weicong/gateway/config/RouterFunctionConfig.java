@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 /**
  * @description 熔断降级路由器
  * @author weicong
- * @date 2019年6月5日 下午7:25:45
+ * @date 2019年6月5日
  * @version 1.0
  */
 @AllArgsConstructor
