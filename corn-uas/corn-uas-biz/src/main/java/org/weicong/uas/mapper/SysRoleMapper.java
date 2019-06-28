@@ -1,15 +1,16 @@
 package org.weicong.uas.mapper;
 
 import org.weicong.uas.entity.SysRole;
-
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
- * @description 
+ * <p>
+ * 角色信息 Mapper 接口
+ * </p>
+ *
  * @author weicong
- * @date 2019年6月27日
- * @version 1.0
+ * @since 2019-06-28
  */
-public interface RoleMapper extends BaseMapper<SysRole>{
+public interface SysRoleMapper extends BaseMapper<SysRole> {
 
 }

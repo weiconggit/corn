@@ -1,15 +1,16 @@
 package org.weicong.uas.service;
 
 import org.weicong.uas.entity.SysMenu;
-
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * @description 
+ * <p>
+ *  服务类
+ * </p>
+ *
  * @author weicong
- * @date 2019年6月27日
- * @version 1.0
+ * @since 2019-06-28
  */
-public interface MenuService extends IService<SysMenu>{
+public interface ISysMenuService extends IService<SysMenu> {
 
 }

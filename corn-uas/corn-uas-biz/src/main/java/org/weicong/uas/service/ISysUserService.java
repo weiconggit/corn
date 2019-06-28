@@ -1,16 +1,16 @@
 package org.weicong.uas.service;
 
 import org.weicong.uas.entity.SysUser;
-
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
- * @description 
+ * <p>
+ * 用户信息 服务类
+ * </p>
+ *
  * @author weicong
- * @date 2019年6月10日
- * @version 1.0
+ * @since 2019-06-28
  */
-public interface UserService extends IService<SysUser>{
-
+public interface ISysUserService extends IService<SysUser> {
 
 }
