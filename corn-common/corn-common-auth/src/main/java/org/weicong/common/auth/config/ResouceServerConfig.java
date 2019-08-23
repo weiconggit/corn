@@ -12,8 +12,10 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
- * @description
+ * @description 资源服务适配器
  * @author weicong
  * @date 2019年8月22日
  * @version 1.0
@@ -25,13 +27,17 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 	private static final String DEMO_RESOURCE_ID = "order";
 
 	@Autowired
+	private ObjectMapper objectMapper;
+	@Autowired
 	private RedisConnectionFactory redisConnectionFactory;
 
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 		resources.tokenServices(tokenServices())
 				// 资源ID
-				.resourceId(DEMO_RESOURCE_ID);
+				.resourceId(DEMO_RESOURCE_ID)
+				.authenticationEntryPoint(new CornAuthenticationEntryPoint(objectMapper))
+				.accessDeniedHandler(new CornAccessDeniedHandler(objectMapper));
 		super.configure(resources);
 	}
 
@@ -39,7 +45,8 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
         .antMatchers("/alive").permitAll()
-		.antMatchers("/**").authenticated();
+		.antMatchers("/**").authenticated()
+		;
 //		http.csrf().disable();
 	}
 
