@@ -1,15 +1,20 @@
 /.settings
 /*/.settings
+/*/*/.settings
 /target
 /*/target
+/*/*/target
 /bin
-*/bin
+/*/bin
+/*/*/bin
 /.git
 /*/.git
+/*/*/.git
 *.svn
 *_svn
 /.classpath
 /*/.classpath
+/*/*/.classpath
 *.prefs
 
 # Log file
