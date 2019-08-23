@@ -15,7 +15,7 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
  */
 @EnableTransactionManagement
 @Configuration
-@MapperScan("org.weicong.*.*.mapper")
+@MapperScan(value = {"org.weicong.*.*.mapper", "org.weicong.*.mapper"})
 public class MybatisPlusConfig {
 
 	/**

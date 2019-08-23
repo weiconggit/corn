@@ -21,7 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 public class RedisConfig {
 
-	  @Bean
+	  @Bean("redisTemplateCustom")
 	  public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory factory){
 	    RedisTemplate<String,Object> template = new RedisTemplate <>();
 	    template.setConnectionFactory(factory);

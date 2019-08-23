@@ -1,0 +1,45 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.weicong</groupId>
+		<artifactId>corn-common</artifactId>
+		<version>0.0.1</version>
+	</parent>
+	<artifactId>corn-common-auth</artifactId>
+
+	<properties>
+		<security.oauth.version>2.3.5.RELEASE</security.oauth.version>
+	</properties>
+
+	<dependencies>
+		<!--spring security 、oauth、jwt依赖 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-security</artifactId>
+			<exclusions>
+				<!-- 旧版本 redis操作有问题 -->
+				<exclusion>
+					<groupId>org.springframework.security.oauth</groupId>
+					<artifactId>spring-security-oauth2</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+			<version>${security.oauth.version}</version>
+		</dependency>
+		<!-- redis -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+		</dependency>
+	</dependencies>
+
+</project>

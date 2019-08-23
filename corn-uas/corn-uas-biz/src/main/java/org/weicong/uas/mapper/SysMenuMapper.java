@@ -1,6 +1,7 @@
 package org.weicong.uas.mapper;
 
 import org.weicong.uas.entity.SysMenu;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

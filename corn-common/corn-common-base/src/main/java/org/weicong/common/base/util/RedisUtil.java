@@ -19,13 +19,13 @@ import org.springframework.util.CollectionUtils;
 public class RedisUtil {
 
 	@Autowired
-	private RedisTemplate<String, Object> redisTemplate;
+	private RedisTemplate<String, Object> redisTemplateCustom;
 
 	private static final long DEFAULT_EXP = 1200L;
 	
 	public boolean expire(String key) {
 		try {
-			redisTemplate.expire(key, DEFAULT_EXP, TimeUnit.SECONDS);
+			redisTemplateCustom.expire(key, DEFAULT_EXP, TimeUnit.SECONDS);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -43,7 +43,7 @@ public class RedisUtil {
 	public boolean expire(String key, long time) {
 		try {
 			if (time > 0) {
-				redisTemplate.expire(key, time, TimeUnit.SECONDS);
+				redisTemplateCustom.expire(key, time, TimeUnit.SECONDS);
 			}
 			return true;
 		} catch (Exception e) {
@@ -59,7 +59,7 @@ public class RedisUtil {
 	 * @return 时间(秒) 返回0代表为永久有效
 	 */
 	public long getExpire(String key) {
-		return redisTemplate.getExpire(key, TimeUnit.SECONDS);
+		return redisTemplateCustom.getExpire(key, TimeUnit.SECONDS);
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class RedisUtil {
 	 */
 	public boolean hasKey(String key) {
 		try {
-			return redisTemplate.hasKey(key);
+			return redisTemplateCustom.hasKey(key);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -86,9 +86,9 @@ public class RedisUtil {
 	public void del(String... key) {
 		if (key != null && key.length > 0) {
 			if (key.length == 1) {
-				redisTemplate.delete(key[0]);
+				redisTemplateCustom.delete(key[0]);
 			} else {
-				redisTemplate.delete(CollectionUtils.arrayToList(key));
+				redisTemplateCustom.delete(CollectionUtils.arrayToList(key));
 			}
 		}
 	}
@@ -101,7 +101,7 @@ public class RedisUtil {
 	 * @return 值
 	 */
 	public Object get(String key) {
-		return key == null ? null : redisTemplate.opsForValue().get(key);
+		return key == null ? null : redisTemplateCustom.opsForValue().get(key);
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class RedisUtil {
 	public boolean set(String key, Object value, long time) {
 		try {
 			if (time > 0) {
-				redisTemplate.opsForValue().set(key, value, time, TimeUnit.SECONDS);
+				redisTemplateCustom.opsForValue().set(key, value, time, TimeUnit.SECONDS);
 			} else {
 				set(key, value);
 			}
@@ -148,7 +148,7 @@ public class RedisUtil {
 		if (delta < 0) {
 			throw new RuntimeException("递增因子必须大于0");
 		}
-		return redisTemplate.opsForValue().increment(key, delta);
+		return redisTemplateCustom.opsForValue().increment(key, delta);
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class RedisUtil {
 		if (delta < 0) {
 			throw new RuntimeException("递减因子必须大于0");
 		}
-		return redisTemplate.opsForValue().increment(key, -delta);
+		return redisTemplateCustom.opsForValue().increment(key, -delta);
 	}
 	// ================================Hash(哈希)=================================
 
@@ -174,7 +174,7 @@ public class RedisUtil {
 	 * @return 值
 	 */
 	public Object hget(String key, String item) {
-		return redisTemplate.opsForHash().get(key, item);
+		return redisTemplateCustom.opsForHash().get(key, item);
 	}
 
 	/**
@@ -184,7 +184,7 @@ public class RedisUtil {
 	 * @return 对应的多个键值
 	 */
 	public Map<Object, Object> hmget(String key) {
-		return redisTemplate.opsForHash().entries(key);
+		return redisTemplateCustom.opsForHash().entries(key);
 	}
 
 	/**
@@ -196,7 +196,7 @@ public class RedisUtil {
 	 */
 	public boolean hmset(String key, Map<String, Object> map) {
 		try {
-			redisTemplate.opsForHash().putAll(key, map);
+			redisTemplateCustom.opsForHash().putAll(key, map);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -214,7 +214,7 @@ public class RedisUtil {
 	 */
 	public boolean hmset(String key, Map<String, Object> map, long time) {
 		try {
-			redisTemplate.opsForHash().putAll(key, map);
+			redisTemplateCustom.opsForHash().putAll(key, map);
 			if (time > 0) {
 				expire(key, time);
 			}
@@ -235,7 +235,7 @@ public class RedisUtil {
 	 */
 	public boolean hset(String key, String item, Object value) {
 		try {
-			redisTemplate.opsForHash().put(key, item, value);
+			redisTemplateCustom.opsForHash().put(key, item, value);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -254,7 +254,7 @@ public class RedisUtil {
 	 */
 	public boolean hset(String key, String item, Object value, long time) {
 		try {
-			redisTemplate.opsForHash().put(key, item, value);
+			redisTemplateCustom.opsForHash().put(key, item, value);
 			if (time > 0) {
 				expire(key, time);
 			}
@@ -272,7 +272,7 @@ public class RedisUtil {
 	 * @param item 项 可以使多个 不能为null
 	 */
 	public void hdel(String key, Object... item) {
-		redisTemplate.opsForHash().delete(key, item);
+		redisTemplateCustom.opsForHash().delete(key, item);
 	}
 
 	/**
@@ -283,7 +283,7 @@ public class RedisUtil {
 	 * @return true 存在 false不存在
 	 */
 	public boolean hHasKey(String key, String item) {
-		return redisTemplate.opsForHash().hasKey(key, item);
+		return redisTemplateCustom.opsForHash().hasKey(key, item);
 	}
 
 	/**
@@ -295,7 +295,7 @@ public class RedisUtil {
 	 * @return
 	 */
 	public double hincr(String key, String item, double by) {
-		return redisTemplate.opsForHash().increment(key, item, by);
+		return redisTemplateCustom.opsForHash().increment(key, item, by);
 	}
 
 	/**
@@ -307,7 +307,7 @@ public class RedisUtil {
 	 * @return
 	 */
 	public double hdecr(String key, String item, double by) {
-		return redisTemplate.opsForHash().increment(key, item, -by);
+		return redisTemplateCustom.opsForHash().increment(key, item, -by);
 	}
 	// ============================Set(集合)=============================
 
@@ -319,7 +319,7 @@ public class RedisUtil {
 	 */
 	public Set<Object> sGet(String key) {
 		try {
-			return redisTemplate.opsForSet().members(key);
+			return redisTemplateCustom.opsForSet().members(key);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -335,7 +335,7 @@ public class RedisUtil {
 	 */
 	public boolean sHasKey(String key, Object value) {
 		try {
-			return redisTemplate.opsForSet().isMember(key, value);
+			return redisTemplateCustom.opsForSet().isMember(key, value);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -351,7 +351,7 @@ public class RedisUtil {
 	 */
 	public long sSet(String key, Object... values) {
 		try {
-			return redisTemplate.opsForSet().add(key, values);
+			return redisTemplateCustom.opsForSet().add(key, values);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -368,7 +368,7 @@ public class RedisUtil {
 	 */
 	public long sSetAndTime(String key, long time, Object... values) {
 		try {
-			Long count = redisTemplate.opsForSet().add(key, values);
+			Long count = redisTemplateCustom.opsForSet().add(key, values);
 			if (time > 0)
 				expire(key, time);
 			return count;
@@ -386,7 +386,7 @@ public class RedisUtil {
 	 */
 	public long sGetSetSize(String key) {
 		try {
-			return redisTemplate.opsForSet().size(key);
+			return redisTemplateCustom.opsForSet().size(key);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -402,7 +402,7 @@ public class RedisUtil {
 	 */
 	public long setRemove(String key, Object... values) {
 		try {
-			Long count = redisTemplate.opsForSet().remove(key, values);
+			Long count = redisTemplateCustom.opsForSet().remove(key, values);
 			return count;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -421,7 +421,7 @@ public class RedisUtil {
 	 */
 	public List<Object> lGet(String key, long start, long end) {
 		try {
-			return redisTemplate.opsForList().range(key, start, end);
+			return redisTemplateCustom.opsForList().range(key, start, end);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -436,7 +436,7 @@ public class RedisUtil {
 	 */
 	public long lGetListSize(String key) {
 		try {
-			return redisTemplate.opsForList().size(key);
+			return redisTemplateCustom.opsForList().size(key);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -452,7 +452,7 @@ public class RedisUtil {
 	 */
 	public Object lGetIndex(String key, long index) {
 		try {
-			return redisTemplate.opsForList().index(key, index);
+			return redisTemplateCustom.opsForList().index(key, index);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -468,7 +468,7 @@ public class RedisUtil {
 	 */
 	public boolean lSet(String key, Object value) {
 		try {
-			redisTemplate.opsForList().rightPush(key, value);
+			redisTemplateCustom.opsForList().rightPush(key, value);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -486,7 +486,7 @@ public class RedisUtil {
 	 */
 	public boolean lSet(String key, Object value, long time) {
 		try {
-			redisTemplate.opsForList().rightPush(key, value);
+			redisTemplateCustom.opsForList().rightPush(key, value);
 			if (time > 0)
 				expire(key, time);
 			return true;
@@ -505,7 +505,7 @@ public class RedisUtil {
 	 */
 	public boolean lSet(String key, List<Object> value) {
 		try {
-			redisTemplate.opsForList().rightPushAll(key, value);
+			redisTemplateCustom.opsForList().rightPushAll(key, value);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -523,7 +523,7 @@ public class RedisUtil {
 	 */
 	public boolean lSet(String key, List<Object> value, long time) {
 		try {
-			redisTemplate.opsForList().rightPushAll(key, value);
+			redisTemplateCustom.opsForList().rightPushAll(key, value);
 			if (time > 0)
 				expire(key, time);
 			return true;
@@ -543,7 +543,7 @@ public class RedisUtil {
 	 */
 	public boolean lUpdateIndex(String key, long index, Object value) {
 		try {
-			redisTemplate.opsForList().set(key, index, value);
+			redisTemplateCustom.opsForList().set(key, index, value);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -561,7 +561,7 @@ public class RedisUtil {
 	 */
 	public long lRemove(String key, long count, Object value) {
 		try {
-			Long remove = redisTemplate.opsForList().remove(key, count, value);
+			Long remove = redisTemplateCustom.opsForList().remove(key, count, value);
 			return remove;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -572,18 +572,18 @@ public class RedisUtil {
 	//===========================消息队列==================================
 	public void convertAndSend(String topic, Object message) {
 		try {
-			redisTemplate.convertAndSend(topic, message);			
+			redisTemplateCustom.convertAndSend(topic, message);			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public RedisSerializer<?> getSerializer() {
-		return redisTemplate.getValueSerializer();
+		return redisTemplateCustom.getValueSerializer();
 	}
 	
 	public RedisSerializer<String> getStringSerializer() {
-		return redisTemplate.getStringSerializer();
+		return redisTemplateCustom.getStringSerializer();
 	}
 	
 }

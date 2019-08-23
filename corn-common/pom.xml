@@ -9,5 +9,6 @@
   <packaging>pom</packaging>
   <modules>
   	<module>corn-common-base</module>
+  	<module>corn-common-auth</module>
   </modules>
 </project>
