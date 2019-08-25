@@ -52,6 +52,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				.allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
 
 		endpoints.reuseRefreshTokens(true);
+		endpoints.exceptionTranslator(new CornWebResponseExceptionTranslator());
 	}
 
 	@Override

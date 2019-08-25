@@ -13,8 +13,9 @@ import lombok.Getter;
 @Getter
 public enum SecurityRpEnum {
 
+	LOGIN_SUCCESS(0, "登录成功"),
 	NO_LOGIN(-2, "请先登录"),
-	ERROR_LOGIN(-3, "没有权限"),
+	ERROR_AUTHEN(-3, "认证错误"),
 	NO_PERMIT(-4, "登录已过期，请重新登录"),
 	NO_AUTHOR(-5, "没有权限");
 

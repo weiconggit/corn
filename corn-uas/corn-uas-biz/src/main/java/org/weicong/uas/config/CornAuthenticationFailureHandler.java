@@ -19,11 +19,12 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @description 认证失败处理器
+ * @description 认证失败处理器，仅用于表单登录
  * @author weicong
  * @date 2019年8月23日
  * @version 1.0
  */
+@Deprecated
 @Slf4j
 @AllArgsConstructor
 public class CornAuthenticationFailureHandler implements AuthenticationFailureHandler{
@@ -38,7 +39,7 @@ public class CornAuthenticationFailureHandler implements AuthenticationFailureHa
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
 		response.getWriter().write(objectMapper.writeValueAsString(
-        		new SecurityRpInfo<String>(SecurityRpEnum.ERROR_LOGIN, exception.getMessage())));
+        		new SecurityRpInfo<String>(SecurityRpEnum.ERROR_AUTHEN, exception.getMessage())));
 	}
 
 }

@@ -40,4 +40,9 @@ public class SecurityRpInfo<E> implements Serializable{
     	this.data = data;
     }
 
+    public SecurityRpInfo(SecurityRpEnum rpEnum, String msg, E data){
+    	this.code = rpEnum.code;
+    	this.msg = msg;
+    	this.data = data;
+    }
 }

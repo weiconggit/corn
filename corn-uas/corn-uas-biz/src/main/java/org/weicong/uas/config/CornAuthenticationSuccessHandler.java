@@ -18,11 +18,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
 
 /**
- * @description 认证成功处理器
+ * @description 认证成功处理器，仅用于表单登录
  * @author weicong
  * @date 2019年8月23日
  * @version 1.0
  */
+@Deprecated
 @AllArgsConstructor
 public class CornAuthenticationSuccessHandler implements AuthenticationSuccessHandler{
 
@@ -35,7 +36,7 @@ public class CornAuthenticationSuccessHandler implements AuthenticationSuccessHa
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
 		response.getWriter().write(objectMapper.writeValueAsString(
-        		new SecurityRpInfo<Authentication>(SecurityRpEnum.ERROR_LOGIN, authentication)));
+        		new SecurityRpInfo<Authentication>(SecurityRpEnum.LOGIN_SUCCESS, authentication)));
 	}
 
 }

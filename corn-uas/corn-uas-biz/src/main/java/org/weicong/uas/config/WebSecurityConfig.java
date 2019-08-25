@@ -10,6 +10,10 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * @description 
@@ -45,11 +49,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/oauth/*")
 		.permitAll();
 		// @formatter:on
+		http.formLogin()
+		.failureHandler(cornAuthenticationFailureHandler())
+		.successHandler(cornAuthenticationSuccessHandler());
 	}
 	
 	@Bean
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
+	}
+	
+	@Bean
+	public AuthenticationSuccessHandler cornAuthenticationSuccessHandler() {
+		return new CornAuthenticationSuccessHandler(getObjectMapper());
+	}
+	@Bean
+	public AuthenticationFailureHandler cornAuthenticationFailureHandler() {
+		return new CornAuthenticationFailureHandler(getObjectMapper());
+	}
+	
+	private ObjectMapper getObjectMapper() {
+		return new ObjectMapper();
 	}
 }
