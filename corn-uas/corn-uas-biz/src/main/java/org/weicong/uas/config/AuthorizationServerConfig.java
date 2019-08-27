@@ -40,6 +40,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				.secret("123456").and().withClient("client_2").resourceIds(DEMO_RESOURCE_ID)
 				.authorizedGrantTypes("password", "refresh_token").scopes("select").authorities("client")
 				.secret("123456");
+		
 	}
 
 	@Override
@@ -53,6 +54,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 		endpoints.reuseRefreshTokens(true);
 		endpoints.exceptionTranslator(new CornWebResponseExceptionTranslator());
+		endpoints.tokenEnhancer(new CornTokenEnhancer());
 	}
 
 	@Override

@@ -12,6 +12,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  */
 @JsonSerialize(using = CornOauthExceptionSerializer.class)
 public class CornOAuth2Exception extends OAuth2Exception {
+
+	private static final long serialVersionUID = 124828322421996201L;
+
 	public CornOAuth2Exception(String msg) {
         super(msg);
     }
