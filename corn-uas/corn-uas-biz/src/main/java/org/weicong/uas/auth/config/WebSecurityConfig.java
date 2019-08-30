@@ -1,4 +1,4 @@
-package org.weicong.uas.config;
+package org.weicong.uas.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,13 +33,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		System.err.println("=======web config http=======");
 		// @formatter:off
 		http
 			.authorizeRequests()
-			.antMatchers(
-			"/oauth/**").permitAll()
-			.anyRequest().authenticated();
+			// 当 WebSecurityConfigurer 和 ResourceServerA 同时存在时，会被 ResourceServer的http配置覆盖
+//			.antMatchers(
+//			"/oauth/**").permitAll()
+			.anyRequest().authenticated()
+			;
 //			.and().csrf().disable();
 //			.requestMatchers()
 //			.anyRequest()

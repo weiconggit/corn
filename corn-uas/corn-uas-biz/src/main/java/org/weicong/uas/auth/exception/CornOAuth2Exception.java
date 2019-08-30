@@ -1,4 +1,4 @@
-package org.weicong.uas.config;
+package org.weicong.uas.auth.exception;
 
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 

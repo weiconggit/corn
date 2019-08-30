@@ -1,4 +1,4 @@
-package org.weicong.uas.config;
+package org.weicong.uas.auth.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

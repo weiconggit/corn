@@ -62,10 +62,12 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 					"/images/**",
 					"/fonts/**",
 					"/favicon.ico",
+					"/oauth/**",
 					"/alive"
 					).permitAll()
 			.anyRequest().authenticated()
-			.and().csrf().disable();
+			.and().csrf().disable()
+			;
 		// @formatter:on
 		
 //		http.headers().frameOptions().disable();

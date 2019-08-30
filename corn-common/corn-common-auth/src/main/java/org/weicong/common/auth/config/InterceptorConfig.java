@@ -32,6 +32,8 @@ public class InterceptorConfig implements WebMvcConfigurer {
 				"/images/**",
 				"/fonts/**",
 				"/favicon.ico",
+				"/oauth/**",
+				"/error",
 				"/alive");
 		interceptor.excludePathPatterns(list);
 		// formatter:on

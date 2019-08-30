@@ -1,4 +1,4 @@
-package org.weicong.uas.config;
+package org.weicong.uas.auth.config;
 
 import java.util.ArrayList;
 import java.util.List;

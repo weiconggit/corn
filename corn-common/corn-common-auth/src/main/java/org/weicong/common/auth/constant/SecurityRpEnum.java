@@ -14,6 +14,7 @@ import lombok.Getter;
 public enum SecurityRpEnum {
 
 	LOGIN_SUCCESS(0, "登录成功"),
+	LOGOUT_SUCCESS(0, "登出成功"),
 	GET_TOKEN_SUCCESS(0, "token获取成功"),
 	NO_LOGIN(-2, "请先登录"),
 	ERROR_AUTHEN(-3, "认证错误"),

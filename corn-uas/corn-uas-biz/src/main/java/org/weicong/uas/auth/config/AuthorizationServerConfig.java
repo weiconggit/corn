@@ -1,4 +1,4 @@
-package org.weicong.uas.config;
+package org.weicong.uas.auth.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -10,7 +10,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.weicong.common.auth.config.CornAccessDeniedHandler;
 import org.weicong.common.auth.config.CornTokenEnhancer;
+import org.weicong.uas.auth.exception.CornWebResponseExceptionTranslator;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.AllArgsConstructor;
 
@@ -27,6 +31,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	private static final String DEMO_RESOURCE_ID = "order";
 
+	private final ObjectMapper objectMapper;
 	private final AuthenticationManager authenticationManager;
 	private final RedisConnectionFactory redisConnectionFactory;
 	private final CornUserDetailsService cornUserDetailsService;
@@ -67,7 +72,10 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
 		// 允许表单认证
-		oauthServer.allowFormAuthenticationForClients();
+		oauthServer.allowFormAuthenticationForClients()
+		.accessDeniedHandler(new CornAccessDeniedHandler(objectMapper))
+		
+		;
 	}
 
 	
