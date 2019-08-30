@@ -7,7 +7,7 @@
 		<artifactId>corn</artifactId>
 		<version>0.0.1</version>
 	</parent>
-	<artifactId>corn-auth</artifactId>
+	<artifactId>corn-auth-test</artifactId>
 
 	<properties>
 		<security.oauth.version>2.3.5.RELEASE</security.oauth.version>
@@ -23,15 +23,17 @@
 			<artifactId>corn-common-auth</artifactId>
 			<version>0.0.1</version>
 		</dependency>
-		<!--server-api -->
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-		</dependency>
 		<!--web 模块 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<!-- <exclusions>
+				排除tomcat依赖
+				<exclusion>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+					<groupId>org.springframework.boot</groupId>
+				</exclusion>
+			</exclusions> -->
 		</dependency>
 	</dependencies>
 </project>

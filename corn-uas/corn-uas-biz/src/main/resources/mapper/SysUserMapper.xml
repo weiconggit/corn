@@ -2,4 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.weicong.uas.mapper.SysUserMapper">
 
+	<sql id="userSql">
+		id,
+		username,
+		password,
+		phone,
+		head,
+		wx_openid,
+		qq_openid,
+		creator
+	</sql>
+
+	<select id="selectByUsername" resultType="org.weicong.uas.entity.SysUser">
+		SELECT 
+		<include refid="userSql"/> 
+		FROM sys_user 
+		<where>
+			<if test="username != null and username != ''">
+				AND username = #{username}
+			</if>
+		</where>
+	</select>
+
 </mapper>

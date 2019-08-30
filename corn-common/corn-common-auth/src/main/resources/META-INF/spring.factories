@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-	org.weicong.common.auth.config.ResouceServerConfig
+	org.weicong.common.auth.config.ResouceServerConfig,\
+	org.weicong.common.auth.config.InterceptorConfig

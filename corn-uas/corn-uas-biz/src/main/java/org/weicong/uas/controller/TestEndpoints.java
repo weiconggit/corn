@@ -1,7 +1,10 @@
 package org.weicong.uas.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class TestEndpoints {
-	
+		
 	@GetMapping("/alive")
     public String getProduct() {
         //for debug
@@ -23,6 +26,8 @@ public class TestEndpoints {
 
 	@GetMapping("/product/{id}")
     public String getProduct(@PathVariable String id) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();        
+		System.err.println("===" + userDetails.getAuthorities());
         //for debug
         @SuppressWarnings("unused")
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

@@ -1,5 +1,6 @@
 package org.weicong.uas.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.weicong.uas.entity.SysUser;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -14,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
+	SysUser selectByUsername(@Param("username") String username);
 }
