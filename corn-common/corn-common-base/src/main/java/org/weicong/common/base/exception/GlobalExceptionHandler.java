@@ -31,6 +31,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(value = { MissingServletRequestParameterException.class
 			, MethodArgumentNotValidException.class
 			, BindException.class
+			, Exception.class
 			, BizException.class })
 	public RpInfo<?> processException(Exception ex, HttpServletRequest request, HttpServletResponse response) {
 		// 参数错误

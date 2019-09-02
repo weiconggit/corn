@@ -9,6 +9,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.HandlerMapping;
+import org.weicong.common.auth.config.CornAccessDeniedHandler;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -34,9 +37,9 @@ public class URLInterceptor implements HandlerInterceptor {
 				return true;
 			}
 		}
-		
 		log.info("URL grant denied ! userDetails:[{}], url:[{}]", userDetails, url);
-		throw new AccessDeniedException("grant denied");
+		new CornAccessDeniedHandler(new ObjectMapper()).handle(request, response, new AccessDeniedException("access denied !"));
+		return false;
 	}
 
 }
