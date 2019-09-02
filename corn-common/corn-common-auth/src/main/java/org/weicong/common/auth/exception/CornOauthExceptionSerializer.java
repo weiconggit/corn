@@ -1,4 +1,4 @@
-package org.weicong.uas.auth.exception;
+package org.weicong.common.auth.exception;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

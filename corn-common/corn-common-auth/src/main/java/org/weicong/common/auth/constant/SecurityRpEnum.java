@@ -16,10 +16,15 @@ public enum SecurityRpEnum {
 	LOGIN_SUCCESS(0, "登录成功"),
 	LOGOUT_SUCCESS(0, "登出成功"),
 	GET_TOKEN_SUCCESS(0, "token获取成功"),
+	ERROR_SYSTEM(-1, "系统繁忙,请稍后再试"), 
+	ERROR_PARAMETER(-1, "参数错误"),
+
+	
 	NO_LOGIN(-2, "请先登录"),
 	ERROR_AUTHEN(-3, "认证错误"),
 	NO_PERMIT(-4, "登录已过期，请重新登录"),
 	NO_AUTHOR(-5, "没有权限");
+	
 
 	public Integer code;
 

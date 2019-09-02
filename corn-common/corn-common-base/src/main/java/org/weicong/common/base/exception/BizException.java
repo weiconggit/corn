@@ -2,7 +2,7 @@ package org.weicong.common.base.exception;
 
 import java.text.MessageFormat;
 
-import org.weicong.common.base.entity.RpEnum;
+import org.weicong.common.base.constant.RpEnum;
 
 import lombok.Getter;
 

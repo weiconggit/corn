@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
  * @version 1.0
  */
 @Slf4j
+@Deprecated
 public class CornAccessDecisionVoter implements AccessDecisionVoter<Object> {
 
 	@Override

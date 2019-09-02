@@ -1,4 +1,4 @@
-package org.weicong.uas.auth.exception;
+package org.weicong.common.auth.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

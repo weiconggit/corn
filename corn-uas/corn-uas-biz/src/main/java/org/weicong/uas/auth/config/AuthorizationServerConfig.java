@@ -12,7 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.weicong.common.auth.config.CornAccessDeniedHandler;
 import org.weicong.common.auth.config.CornTokenEnhancer;
-import org.weicong.uas.auth.exception.CornWebResponseExceptionTranslator;
+import org.weicong.common.auth.exception.CornWebResponseExceptionTranslator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

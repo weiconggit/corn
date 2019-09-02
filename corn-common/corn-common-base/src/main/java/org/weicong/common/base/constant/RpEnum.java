@@ -1,4 +1,4 @@
-package org.weicong.common.base.entity;
+package org.weicong.common.base.constant;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
