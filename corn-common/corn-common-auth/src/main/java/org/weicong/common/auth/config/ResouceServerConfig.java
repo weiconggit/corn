@@ -3,6 +3,7 @@ package org.weicong.common.auth.config;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.access.AccessDecisionManager;
@@ -64,6 +65,7 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 					"/favicon.ico",
 					"/oauth/**",
 					"/alive"
+					,"/oauth/**"
 					).permitAll()
 			.anyRequest().authenticated()
 			.and().csrf().disable()
@@ -86,6 +88,7 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 	 * 
 	 * @return
 	 */
+	@Bean
 	public TokenStore tokenStore() {
 		return new RedisTokenStore(redisConnectionFactory);
 	}
