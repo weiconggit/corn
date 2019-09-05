@@ -1,7 +1,6 @@
 package org.weicong.common.auth.config;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.util.Assert;
 
 /**
@@ -10,6 +9,7 @@ import org.springframework.util.Assert;
  * @date 2019年8月30日
  * @version 1.0
  */
+@Deprecated
 public class URLGrantedAuthority implements GrantedAuthority {
 
 	private static final long serialVersionUID = -7187790544464696954L;

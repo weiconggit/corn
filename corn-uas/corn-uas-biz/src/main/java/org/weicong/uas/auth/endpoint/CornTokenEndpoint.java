@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.weicong.common.auth.constant.SecurityRpEnum;
 import org.weicong.common.auth.constant.SecurityRpInfo;
 import org.weicong.common.base.util.StringUtil;
+import org.weicong.uas.auth.util.AuthUtil;
 
 import lombok.AllArgsConstructor;
 
@@ -24,19 +25,22 @@ import lombok.AllArgsConstructor;
 public class CornTokenEndpoint {
 	
 	private final TokenStore tokenStore;
+	private final AuthUtil authUtil;
 	
 	@RequestMapping("/logout")
 	public SecurityRpInfo<String> logout(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authHeader){
-		if (StringUtil.isBlank(authHeader)) 
-			return new SecurityRpInfo<String>(-1, "退出登录失败，token为空", "");
+//		if (StringUtil.isBlank(authHeader)) 
+//			return new SecurityRpInfo<String>(-1, "退出登录失败，token为空", "");
+//		
+//		String tokenValue = authHeader.replace(OAuth2AccessToken.BEARER_TYPE, "").trim();
+//		OAuth2AccessToken accessToken = tokenStore.readAccessToken(tokenValue);
+//		
+//		if (accessToken == null || StringUtil.isBlank(accessToken.getValue()))
+//			return new SecurityRpInfo<String>(-1, "退出失败，token无效", "");
+//
+//		tokenStore.removeAccessToken(accessToken);
 		
-		String tokenValue = authHeader.replace(OAuth2AccessToken.BEARER_TYPE, "").trim();
-		OAuth2AccessToken accessToken = tokenStore.readAccessToken(tokenValue);
-		
-		if (accessToken == null || StringUtil.isBlank(accessToken.getValue()))
-			return new SecurityRpInfo<String>(-1, "退出失败，token无效", "");
-
-		tokenStore.removeAccessToken(accessToken);
+		authUtil.overloadTokenCache();
 		
 		return new SecurityRpInfo<String>(SecurityRpEnum.LOGOUT_SUCCESS, "");
 	}
