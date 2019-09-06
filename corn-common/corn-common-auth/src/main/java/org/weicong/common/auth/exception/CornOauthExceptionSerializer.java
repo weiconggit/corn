@@ -17,9 +17,9 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
 /**
- * @description 
+ * @description 自定义oauth2异常序列化
  * @author weicong
- * @time   2019年8月25日 下午2:07:05
+ * @time   2019年8月25日
  * @version 1.0
  */
 public class CornOauthExceptionSerializer extends StdSerializer<CornOAuth2Exception> {
@@ -35,6 +35,7 @@ public class CornOauthExceptionSerializer extends StdSerializer<CornOAuth2Except
 		ObjectMapper objectMapper = new ObjectMapper();
 		jsonGenerator.writeRawValue(objectMapper.writeValueAsString(securityRpInfo));
 		
+		// TODO DEL
 		//可以不用下面的代码，只用 jsonGenerator.writeRawValue(myJsonString)  输出自定义字符串
 //        jsonGenerator.writeStartObject();
 //        jsonGenerator.writeNumberField("code4444", value.getHttpErrorCode());

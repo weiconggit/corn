@@ -7,7 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 /**
- * @description 
+ * @description 自定义oauth2用户信息
  * @author weicong
  * @date 2019年9月4日
  * @version 1.0

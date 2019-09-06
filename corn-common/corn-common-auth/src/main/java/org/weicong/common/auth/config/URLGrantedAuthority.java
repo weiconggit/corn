@@ -4,7 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.Assert;
 
 /**
- * @description 
+ * @description 权限url存放对象，也可以利用URLUser存放
  * @author weicong
  * @date 2019年8月30日
  * @version 1.0

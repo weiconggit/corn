@@ -105,7 +105,7 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 	}
 
 	/**
-	 * 自定义投票器
+	 * 自定义决策器
 	 * 
 	 * @return
 	 */

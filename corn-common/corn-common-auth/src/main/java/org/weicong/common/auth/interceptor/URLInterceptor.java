@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @description 
+ * @description URL鉴权拦截器
  * @author weicong
  * @date 2019年8月30日
  * @version 1.0
@@ -32,6 +32,7 @@ public class URLInterceptor implements HandlerInterceptor {
 			String url = new StringBuilder(request.getMethod())
 					.append(request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE).toString()).toString();
 			for (String urlString : urlUser.getUrlList()) {
+				// TODO DEL
 				System.err.println("urlString=" + urlString + ", url=" + url);
 				if (urlString.equals(url)) {
 					return true;

@@ -7,9 +7,9 @@ import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
 
 /**
- * @description 
+ * @description 自定义实现oauth2异常转换
  * @author weicong
- * @time   2019年8月25日 下午2:02:26
+ * @time   2019年8月25日
  * @version 1.0
  */
 @SuppressWarnings("rawtypes")
