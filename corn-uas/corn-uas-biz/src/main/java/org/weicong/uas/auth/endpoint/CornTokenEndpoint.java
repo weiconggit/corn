@@ -23,7 +23,7 @@ import lombok.AllArgsConstructor;
  * @version 1.0
  */
 @AllArgsConstructor
-@RestController()
+@RestController
 @RequestMapping("/oauth")
 public class CornTokenEndpoint {
 	
