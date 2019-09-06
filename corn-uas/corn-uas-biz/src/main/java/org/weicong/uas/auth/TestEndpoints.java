@@ -1,4 +1,4 @@
-package org.weicong.uas.controller;
+package org.weicong.uas.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
