@@ -42,14 +42,16 @@ public class CornTokenEndpoint {
 			return new SecurityRpInfo<String>(-1, "退出失败，token无效", "");
 
 		tokenStore.removeAccessToken(accessToken);
+		tokenStore.removeRefreshToken(accessToken.getRefreshToken());
 		return new SecurityRpInfo<String>(SecurityRpEnum.LOGOUT_SUCCESS, "");
 	}
 	
 	@RequestMapping("/overload")
 	public SecurityRpInfo<String> overload(){
 		List<String> list = new ArrayList<String>();
+		// TODO from database
 		list.add("GET/order/{id}");
 		authUtil.overloadTokenCache(list);
-		return new SecurityRpInfo<String>(SecurityRpEnum.LOGOUT_SUCCESS, "");
+		return new SecurityRpInfo<String>(SecurityRpEnum.OVERLOAD_SUCCESS, "");
 	}
 }

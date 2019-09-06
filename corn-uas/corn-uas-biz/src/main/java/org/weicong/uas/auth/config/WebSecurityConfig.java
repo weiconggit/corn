@@ -1,5 +1,6 @@
 package org.weicong.uas.auth.config;
 
+import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -17,7 +18,8 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
  * @date 2019年8月22日
  * @version 1.0
  */
-//@EnableWebSecurity
+@EnableWebSecurity
+//@EnableOAuth2Sso
 @Order(90)
 @Primary
 @Configuration

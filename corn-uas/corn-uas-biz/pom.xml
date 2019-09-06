@@ -52,6 +52,14 @@
 		</dependency>
 		<!-- spring security start-->
 		<!--spring security 、oauth依赖 -->
+		
+		<!-- sso -->
+		<dependency>
+		    <groupId>org.springframework.security.oauth.boot</groupId>
+		    <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+		    <version>2.1.2.RELEASE</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-security</artifactId>
