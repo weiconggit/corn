@@ -84,7 +84,7 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 	}
 	
 	/**
-	 * OAuth2 token 持久化接口
+	 * OAuth2 token 持久化接口，@Bean 是为了AuthUtil能够注入
 	 * 
 	 * @return
 	 */

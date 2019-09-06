@@ -39,25 +39,18 @@ public class CornAccessDecisionVoter implements AccessDecisionVoter<Object> {
 	@Override
 	public int vote(Authentication authentication, Object object, Collection<ConfigAttribute> attributes) {
 		int result = ACCESS_DENIED; // 访问拒绝
-		if (authentication == null) {
-			return result; 
-		}
+		if (authentication == null) return result; 
+		
 		FilterInvocation fi = (FilterInvocation) object;
 		HttpServletRequest request = fi.getRequest();
 		System.err.println("====投票器====");
+		
+		// 提前触发初始化无效
 //		HandlerMapping handlerMapping = new RequestMappingHandlerMapping();
 //		HandlerExecutionChain chain = handlerMapping.getHandler(fi.getRequest());
+//		// 无法在 filter 中获取 restful 风格的 url，因为 spring handler 初始化在 filter 之后
 //		String url = fi.getRequest().getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE).toString();
-//		for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
-//			if (url.equals(grantedAuthority.getAuthority())) {
-//				result = ACCESS_GRANTED;// 访问通过
-//				return result;
-//			}
-//		}
-		
-		
-		
-		// （一）=========== 使用 authenticationf 方式
+
 		// 0、这里可以获取到该用户将要访问的api资源的url信息
 //		String url = fi.getRequestUrl();
 //		
@@ -70,11 +63,6 @@ public class CornAccessDecisionVoter implements AccessDecisionVoter<Object> {
 //				return result;
 //			}
 //		}
-		
-		// ===========弃用 authentication 使用 redis 方式
-		// 1、从authentication中获取到用户id
-		// 2、从redis中获取用户的权限资源url集（根据用户id去找）
-		// 3、比较0步骤中获取的url和redis获取的url信息
 		
 		return result;
 	}
