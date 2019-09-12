@@ -1,5 +1,7 @@
 package org.weicong.uas.auth.config;
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
@@ -10,9 +12,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.weicong.common.auth.config.CornAccessDeniedHandler;
-import org.weicong.common.auth.config.CornTokenEnhancer;
 import org.weicong.common.auth.exception.CornWebResponseExceptionTranslator;
+import org.weicong.uas.auth.integration.IntegrationAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -50,7 +53,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 			.tokenEnhancer(new CornTokenEnhancer());
 		// @formatter:on
 	}
-	
+
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		// @formatter:off
@@ -72,11 +75,30 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
 		// 允许表单认证
-		oauthServer.allowFormAuthenticationForClients()
-		.accessDeniedHandler(new CornAccessDeniedHandler(objectMapper))
-		
-		;
+		oauthServer.allowFormAuthenticationForClients().accessDeniedHandler(new CornAccessDeniedHandler(objectMapper))
+//				.addTokenEndpointAuthenticationFilter(integrationAuthenticationFilter)// 无法由spring bean管理
+				;
 	}
-
+		
+	/**
+	 * .addTokenEndpointAuthenticationFilter 和 下面的不能共存，否则filter会调用两次
+	 * @return
+	 */
+	@Bean
+	public IntegrationAuthenticationFilter integrationAuthenticationFilter() {
+		return new IntegrationAuthenticationFilter();
+	}
 	
+//	@Bean
+	public FilterRegistrationBean registration() {
+	    FilterRegistrationBean registration = new FilterRegistrationBean();
+	    registration.setFilter(new DelegatingFilterProxy("integrationAuthenticationFilter"));
+//		registrationBean.addInitParameter("targetFilterLifecycle", "true");
+//		registrationBean.addUrlPatterns("/*");
+//		registrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico");
+//		registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
+	    registration.setEnabled(false);
+	    return registration;
+
+	}
 }

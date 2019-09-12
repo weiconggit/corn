@@ -1,9 +1,13 @@
-package org.weicong.common.auth.config;
+package org.weicong.uas.auth.config;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.weicong.common.auth.constant.SecurityRpEnum;
 import org.weicong.common.auth.constant.SecurityRpInfo;
 
@@ -29,6 +33,23 @@ public final class CornTokenSerializer extends StdSerializer<CornOAuth2AccessTok
 	@Override
 	public void serialize(CornOAuth2AccessToken value, JsonGenerator gen, SerializerProvider provider)
 			throws IOException {
+//		HttpServletRequest request = ((ServletRequestAttributes)(RequestContextHolder.currentRequestAttributes())).getRequest();
+//		String requestHeader = request.getHeader("user-agent");
+//		System.out.println("requestHeader = " + requestHeader);
+//		if(requestHeader.indexOf("Windows") > 0){// PC Windows
+//			System.out.println("pc windows");
+//		}else if (requestHeader.indexOf("Macintosh") > 0) { // PC Mac OS X
+//			System.out.println("pc Macintosh");
+//		}else if (requestHeader.indexOf("X11") > 0) {// PC Linux 
+//			System.out.println("pc X11");
+//        }else if (requestHeader.indexOf("Android") > 0) {// MOBILE Android
+//			System.out.println("Android");
+//		}else if (requestHeader.indexOf("iPhone") > 0) {// MOBILE iPhone OS
+//			System.out.println("iPhone");
+//		}else if (requestHeader.indexOf("windows phone") > 0){// 待验证
+//			System.out.println("windows phone");
+//		}
+		
 		Map<String, Object> map = new HashMap<>();
 		map.put("token_type", value.getTokenType());
 		map.put("access_token", value.getValue());
