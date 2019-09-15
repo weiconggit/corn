@@ -49,7 +49,7 @@ public final class CornTokenSerializer extends StdSerializer<CornOAuth2AccessTok
 //		}else if (requestHeader.indexOf("windows phone") > 0){// 待验证
 //			System.out.println("windows phone");
 //		}
-		
+		System.out.println("5555 chenggong");
 		Map<String, Object> map = new HashMap<>();
 		map.put("token_type", value.getTokenType());
 		map.put("access_token", value.getValue());

@@ -1,7 +1,6 @@
 package org.weicong.uas.auth.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
@@ -15,7 +14,6 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.weicong.common.auth.config.CornAccessDeniedHandler;
 import org.weicong.common.auth.exception.CornWebResponseExceptionTranslator;
-import org.weicong.uas.auth.integration.IntegrationAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -77,28 +75,29 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		// 允许表单认证
 		oauthServer.allowFormAuthenticationForClients().accessDeniedHandler(new CornAccessDeniedHandler(objectMapper))
 //				.addTokenEndpointAuthenticationFilter(integrationAuthenticationFilter)// 无法由spring bean管理
-				;
+				
+		;
 	}
 		
 	/**
 	 * .addTokenEndpointAuthenticationFilter 和 下面的不能共存，否则filter会调用两次
 	 * @return
 	 */
-	@Bean
-	public IntegrationAuthenticationFilter integrationAuthenticationFilter() {
-		return new IntegrationAuthenticationFilter();
-	}
+//	@Bean
+//	public IntegrationAuthenticationFilter integrationAuthenticationFilter() {
+//		return new IntegrationAuthenticationFilter();
+//	}
 	
 //	@Bean
-	public FilterRegistrationBean registration() {
-	    FilterRegistrationBean registration = new FilterRegistrationBean();
-	    registration.setFilter(new DelegatingFilterProxy("integrationAuthenticationFilter"));
+//	public FilterRegistrationBean registration() {
+//	    FilterRegistrationBean registration = new FilterRegistrationBean();
+//	    registration.setFilter(new DelegatingFilterProxy("integrationAuthenticationFilter"));
 //		registrationBean.addInitParameter("targetFilterLifecycle", "true");
 //		registrationBean.addUrlPatterns("/*");
 //		registrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico");
 //		registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
-	    registration.setEnabled(false);
-	    return registration;
-
-	}
+//	    registration.setEnabled(false);
+//	    return registration;
+//
+//	}
 }

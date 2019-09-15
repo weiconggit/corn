@@ -28,4 +28,28 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 		return sysUserMapper.selectByUsername(username);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.weicong.uas.service.ISysUserService#getByPhone(java.lang.String)
+	 */
+	@Override
+	public SysUser getByPhone(String phone) {
+		return sysUserMapper.selectByPhone(phone);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.weicong.uas.service.ISysUserService#getByQQOpenid(java.lang.String)
+	 */
+	@Override
+	public SysUser getByQQOpenid(String qqOpenid) {
+		return sysUserMapper.selectByQQOpenid(qqOpenid);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.weicong.uas.service.ISysUserService#getByWXOpenid(java.lang.String)
+	 */
+	@Override
+	public SysUser getByWXOpenid(String wxOpenid) {
+		return sysUserMapper.selectByWXOpenid(wxOpenid);
+	}
+
 }

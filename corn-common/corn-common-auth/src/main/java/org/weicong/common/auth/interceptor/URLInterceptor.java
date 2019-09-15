@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.HandlerMapping;
 import org.weicong.common.auth.config.CornAccessDeniedHandler;
-import org.weicong.common.auth.config.URLUser;
+import org.weicong.common.auth.config.CornUser;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -27,8 +27,8 @@ public class URLInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if (null != object && object instanceof URLUser) {
-			URLUser urlUser = (URLUser) object;
+		if (null != object && object instanceof CornUser) {
+			CornUser urlUser = (CornUser) object;
 			String url = new StringBuilder(request.getMethod())
 					.append(request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE).toString()).toString();
 			for (String urlString : urlUser.getUrlList()) {

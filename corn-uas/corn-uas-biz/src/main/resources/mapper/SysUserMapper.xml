@@ -13,10 +13,11 @@
 		creator
 	</sql>
 
-	<select id="selectByUsername" resultType="org.weicong.uas.entity.SysUser">
-		SELECT 
-		<include refid="userSql"/> 
-		FROM sys_user 
+	<select id="selectByUsername"
+		resultType="org.weicong.uas.entity.SysUser">
+		SELECT
+		<include refid="userSql" />
+		FROM sys_user
 		<where>
 			<if test="username != null and username != ''">
 				AND username = #{username}
@@ -24,4 +25,39 @@
 		</where>
 	</select>
 
+	<select id="selectByPhone"
+		resultType="org.weicong.uas.entity.SysUser">
+		SELECT
+		<include refid="userSql" />
+		FROM sys_user
+		<where>
+			<if test="phone != null and phone != ''">
+				AND phone = #{phone}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectByQQOpenid"
+		resultType="org.weicong.uas.entity.SysUser">
+		SELECT
+		<include refid="userSql" />
+		FROM sys_user
+		<where>
+			<if test="qqOpenid != null and qqOpenid != ''">
+				AND qq_openid = #{qqOpenid}
+			</if>
+		</where>
+	</select>
+
+	<select id="selectByWXOpenid"
+		resultType="org.weicong.uas.entity.SysUser">
+		SELECT
+		<include refid="userSql" />
+		FROM sys_user
+		<where>
+			<if test="wxOpenid != null and wxOpenid != ''">
+				AND wx_openid = #{wxOpenid}
+			</if>
+		</where>
+	</select>
 </mapper>

@@ -16,4 +16,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 public interface SysUserMapper extends BaseMapper<SysUser> {
 
 	SysUser selectByUsername(@Param("username") String username);
+	
+	SysUser selectByPhone(@Param("phone") String phone);
+	
+	SysUser selectByQQOpenid(@Param("qqOpenid") String qqOpenid);
+	
+	SysUser selectByWXOpenid(@Param("wxOpenid") String wxOpenid);
 }

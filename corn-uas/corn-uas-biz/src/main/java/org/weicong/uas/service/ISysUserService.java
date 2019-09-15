@@ -14,5 +14,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface ISysUserService extends IService<SysUser> {
 	
 	SysUser getByUsername(String username);
+	
+	SysUser getByPhone(String phone);
+	
+	SysUser getByQQOpenid(String qqOpenid);
+	
+	SysUser getByWXOpenid(String wxOpenid);
 
 }

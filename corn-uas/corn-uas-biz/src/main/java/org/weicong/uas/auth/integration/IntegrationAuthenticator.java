@@ -1,37 +1,27 @@
 package org.weicong.uas.auth.integration;
+
+import org.springframework.security.core.userdetails.UserDetails;
+
 /**
  * @description 
  * @author weicong
- * @date 2019年9月11日
+ * @date 2019年9月13日
  * @version 1.0
  */
 public interface IntegrationAuthenticator {
 	
 	/**
-     * 处理集成认证
-     * @param integrationAuthentication
+     * 处理相应类型认证
+     * @param 
      * @return
      */
-    void authenticate(IntegrationAuthentication integrationAuthentication);
-
-
-    /**
-     * 进行预处理
-     * @param integrationAuthentication
-     */
-    void prepare(IntegrationAuthentication integrationAuthentication);
+	UserDetails authenticate(IntegrationContext integrationContext);
 
      /**
      * 判断是否支持集成认证类型
-     * @param integrationAuthentication
+     * @param 
      * @return
      */
-    boolean support(IntegrationAuthentication integrationAuthentication);
-
-    /** 认证结束后执行
-     * @param integrationAuthentication
-     */
-    void complete(IntegrationAuthentication integrationAuthentication);
-
+    boolean support(IntegrationContext integrationContext);
 
 }

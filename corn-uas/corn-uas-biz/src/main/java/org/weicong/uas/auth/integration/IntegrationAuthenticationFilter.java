@@ -1,8 +1,6 @@
 package org.weicong.uas.auth.integration;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Map;
 
 import javax.servlet.FilterChain;
@@ -12,9 +10,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.BeansException;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
@@ -23,98 +19,54 @@ import org.springframework.web.filter.GenericFilterBean;
 /**
  * @description
  * @author weicong
- * @date 2019年9月11日
+ * @date 2019年9月13日
  * @version 1.0
  */
-public class IntegrationAuthenticationFilter extends GenericFilterBean implements ApplicationContextAware {
+//@Component
+@Deprecated
+public class IntegrationAuthenticationFilter extends GenericFilterBean {
 
-	private static final String AUTH_TYPE_PARM_NAME = "auth_type";
-
+	private static final String AUTH_TYPE = "auth_type";
 	private static final String OAUTH_TOKEN_URL = "/oauth/token";
 
-	private Collection<IntegrationAuthenticator> authenticators;
+	private final Map<String, IntegrationAuthenticator> map;
+	
+	private final RequestMatcher requestMatcher = new OrRequestMatcher(
+			new AntPathRequestMatcher(OAUTH_TOKEN_URL, "POST"),
+			new AntPathRequestMatcher(OAUTH_TOKEN_URL, "GET"));
 
-	private ApplicationContext applicationContext;
-
-	private RequestMatcher requestMatcher;
-
-	public IntegrationAuthenticationFilter() {
-		this.requestMatcher = new OrRequestMatcher(new AntPathRequestMatcher(OAUTH_TOKEN_URL, "GET"),
-				new AntPathRequestMatcher(OAUTH_TOKEN_URL, "GET"));
+	public IntegrationAuthenticationFilter(Map<String, IntegrationAuthenticator> map) {
+		this.map = map;
 	}
 
 	@Override
-	public void doFilter(ServletRequest request1, ServletResponse response1, FilterChain chain)
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain)
 			throws IOException, ServletException {
-		HttpServletRequest request = (HttpServletRequest) request1;
-		HttpServletResponse response = (HttpServletResponse) response1;
+		HttpServletRequest request = (HttpServletRequest) servletRequest;
+		HttpServletResponse response = (HttpServletResponse) servletResponse;
+		System.err.println("1===================");
 		if (requestMatcher.matches(request)) {
-			// 设置集成登录信息
-			IntegrationAuthentication integrationAuthentication = new IntegrationAuthentication();
-			integrationAuthentication.setAuthType(request.getParameter(AUTH_TYPE_PARM_NAME));
-//			integrationAuthentication.setAuthParameters(request.getParameterMap());
-			IntegrationAuthenticationContext.set(integrationAuthentication);
-			try {
-				// 预处理
-//				this.prepare(integrationAuthentication);
-				System.err.println("===================");
-				Map<String, IntegrationAuthenticator> map = applicationContext.getBeansOfType(IntegrationAuthenticator.class);
-				chain.doFilter(request, response);
-
-				// 后置处理
-//				this.complete(integrationAuthentication);
-			} finally {
-				IntegrationAuthenticationContext.clear();
-			}
-		} else {
-			chain.doFilter(request, response);
-		}
-	}
-
-	/**
-	 * 进行预处理
-	 * 
-	 * @param integrationAuthentication
-	 */
-	private void prepare(IntegrationAuthentication integrationAuthentication) {
-
-		// 延迟加载认证器
-		if (this.authenticators == null) {
-			Map<String, IntegrationAuthenticator> integrationAuthenticatorMap = applicationContext
-					.getBeansOfType(IntegrationAuthenticator.class);
-			if (integrationAuthenticatorMap != null) {
-				this.authenticators = integrationAuthenticatorMap.values();
-			}
-//			synchronized (this) {
+//			IntegrationContext context = new IntegrationContext();
+//			context.setAuthType(request.getParameter(AUTH_TYPE));
+//			context.setUsername(request.getParameter("username"));
+//			context.setUsername(request.getParameter("password"));
+//			// 1、判断是否支持
+//			IntegrationAuthenticator authenticator = getIntegrationAuthenticator(context);
+//			if (!authenticator.support(context)) {
+//				throw new OAuth2Exception("认证类型不支持");
 //			}
-		}
-
-		if (this.authenticators == null) {
-			this.authenticators = new ArrayList<>();
-		}
-
-		for (IntegrationAuthenticator authenticator : authenticators) {
-			if (authenticator.support(integrationAuthentication)) {
-				authenticator.prepare(integrationAuthentication);
-			}
+//			// 2、集成认证特定类型认证
+//			authenticator.authenticate(context);
+			System.err.println("前");
+			chain.doFilter(request, response);
+			Object object  = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			
+			System.err.println("后 " + object);
 		}
 	}
-	
-	/**
-     * 后置处理
-     * @param integrationAuthentication
-     */
-    private void complete(IntegrationAuthentication integrationAuthentication){
-        for (IntegrationAuthenticator authenticator: authenticators) {
-            if(authenticator.support(integrationAuthentication)){
-                authenticator.complete(integrationAuthentication);
-            }
-        }
-    }
 
-    @Override
-    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
-    }
+	private IntegrationAuthenticator getIntegrationAuthenticator(IntegrationContext integrationContext) {
+		return map.get(integrationContext.getAuthType() + IntegrationAuthenticator.class.getSimpleName());
+	}
 
 }

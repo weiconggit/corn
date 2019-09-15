@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.weicong.common.auth.constant.UserDeviceEnum;
 
 /**
  * @description 自定义oauth2用户信息
@@ -12,16 +13,19 @@ import org.springframework.security.core.userdetails.User;
  * @date 2019年9月4日
  * @version 1.0
  */
-public class URLUser extends User{
+public class CornUser extends User {
 
 	private static final long serialVersionUID = -7041106311015979624L;
+	
 	private List<String> urlList;
+//	private String deviceId;
+//	private UserDeviceEnum device;
 
-	public URLUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+	public CornUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 	}
 	
-	public URLUser(List<String> urlList, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+	public CornUser(List<String> urlList, String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 		this.urlList = urlList;
 	}
@@ -33,6 +37,24 @@ public class URLUser extends User{
 	public void setUrlList(List<String> urlList) {
 		this.urlList = urlList;
 	}
+
+//	public String getDeviceId() {
+//		return deviceId;
+//	}
+//
+//	public void setDeviceId(String deviceId) {
+//		this.deviceId = deviceId;
+//	}
+//
+//	public UserDeviceEnum getDevice() {
+//		return device;
+//	}
+//
+//	public void setDevice(UserDeviceEnum device) {
+//		this.device = device;
+//	}
+
+
 	
 
 }
