@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
@@ -17,7 +18,6 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
-import org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -34,17 +34,17 @@ import lombok.AllArgsConstructor;
 @EnableResourceServer
 public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 
-	private static final String DEMO_RESOURCE_ID = "order";
-
 	private final ObjectMapper objectMapper;
 	private final RedisConnectionFactory redisConnectionFactory;
+	private final InterceptorConfigProperties ignoreURLs;
+	private final Environment env;
 
-	
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 		// @formatter:off
-		resources.resourceId(DEMO_RESOURCE_ID)// 资源ID
-			.tokenStore(tokenStore())
+		System.err.println(env.getProperty("security.oauth2.resource.id"));
+		resources
+			.resourceId(env.getProperty("security.oauth2.resource.id"))// 资源ID
 		    .tokenServices(tokenServices())
 			.authenticationEntryPoint(new CornAuthenticationEntryPoint(objectMapper))
 			.accessDeniedHandler(new CornAccessDeniedHandler(objectMapper))
@@ -55,32 +55,14 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
+		String[] ignoreStrings = new String[ignoreURLs.getExcludePath().size()];
+		ignoreURLs.getExcludePath().toArray(ignoreStrings);
 		http
-			.authorizeRequests().antMatchers(
-					"/js/**",
-					"/css/**",
-					"/img/**",
-					"/images/**",
-					"/fonts/**",
-					"/favicon.ico",
-					"/oauth/**",
-					"/alive"
-					,"/oauth/**"
-					).permitAll()
+			.authorizeRequests()
+			.antMatchers(ignoreStrings).permitAll()
 			.anyRequest().authenticated()
-			.and().csrf().disable()
-			;
+			.and().csrf().disable();
 		// @formatter:on
-		
-//		http.headers().frameOptions().disable();
-//		ExpressionUrlAuthorizationConfigurer<HttpSecurity>
-//			.ExpressionInterceptUrlRegistry registry = http
-//			.authorizeRequests();
-//		registry.antMatchers("/alive").permitAll();
-//		registry.anyRequest().authenticated();
-//		.and().csrf().disable();
-		
-//		http.addFilterBefore(new CornAuthenticationProcessingFilter(), WebAsyncManagerIntegrationFilter.class);
 	}
 	
 	/**
@@ -101,6 +83,7 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 	public DefaultTokenServices tokenServices() {
 		DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
 		defaultTokenServices.setTokenStore(tokenStore());
+		defaultTokenServices.setTokenEnhancer(new CornTokenEnhancer());
 		return defaultTokenServices;
 	}
 

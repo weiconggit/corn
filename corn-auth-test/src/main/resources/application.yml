@@ -1,11 +1,23 @@
 server:
    port: 9001
-   
+
+corn: 
+   interceptor: 
+       exclude-path: 
+         - /js/**
+         - /css/**
+         - /img/**
+         - /images/**
+         - /fonts/**
+         - /favicon.ico
+         - /oauth/**
+         - /alive
+         - /oauth/**
+
 security:
-   # url 不拦截白名单
-   #ignored: /alive,/css/**,/js/**,/images/**,/webjars/**,/**/favicon.ico,/static/**
    oauth2:
       resource:
+         id: order
          # 资源服务器相关过滤器链的顺序
          filter-order: 3
 

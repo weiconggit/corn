@@ -1,7 +1,7 @@
 package org.weicong.uas.auth.config;
 
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,8 +11,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
-import org.springframework.web.filter.DelegatingFilterProxy;
 import org.weicong.common.auth.config.CornAccessDeniedHandler;
+import org.weicong.common.auth.config.CornTokenEnhancer;
 import org.weicong.common.auth.exception.CornWebResponseExceptionTranslator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,13 +30,22 @@ import lombok.AllArgsConstructor;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-	private static final String DEMO_RESOURCE_ID = "order";
-
 	private final ObjectMapper objectMapper;
 	private final AuthenticationManager authenticationManager;
 	private final RedisConnectionFactory redisConnectionFactory;
 	private final CornUserDetailsService cornUserDetailsService;
+	private final Environment env;
+	
+	private final static String ENV_CLIENT_PREFIX = "security.oauth2.client.";	
+	private final static String ENV_RESOURCE_ID = "security.oauth2.resource.id";	
+	private static String CLIENT_ID1 = ENV_CLIENT_PREFIX + "client-id1";	
+	private static String CLIENT_SECRET1 = ENV_CLIENT_PREFIX + "client-secret1";	
+	private static String CLIENT_ID2 = ENV_CLIENT_PREFIX + "client-id2";	
+	private static String CLIENT_SECRET2 = ENV_CLIENT_PREFIX + "client-secret2";
+	private static String SCOPES = ENV_CLIENT_PREFIX + "scopes";
+	private static String AUTHORITIES = ENV_CLIENT_PREFIX + "authorities";
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		// @formatter:off
@@ -54,29 +63,37 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		// @formatter:off
 		// 配置两个客户端,一个用于password认证一个用于client认证
-		clients.inMemory()
-			.withClient("client_1")
-			.resourceIds(DEMO_RESOURCE_ID)
+		// @formatter:off
+		clients
+			.inMemory()
+			.withClient(env.getProperty(CLIENT_ID1))
+			.resourceIds(env.getProperty(ENV_RESOURCE_ID))
 			.authorizedGrantTypes("client_credentials", "refresh_token")
-			.scopes("select").authorities("client")
-			.secret("123456").and()
-			.withClient("client_2")
-			.resourceIds(DEMO_RESOURCE_ID)
+			.scopes(env.getProperty(SCOPES))
+			.authorities(env.getProperty(AUTHORITIES))
+			.secret(env.getProperty(CLIENT_SECRET1))
+			.and()
+			
+			.withClient(env.getProperty(CLIENT_ID2))
+			.resourceIds(env.getProperty(ENV_RESOURCE_ID))
 			.authorizedGrantTypes("password", "refresh_token")
-			.scopes("select").authorities("client")
-			.secret("123456");
+			.scopes(env.getProperty(SCOPES))
+			.authorities(env.getProperty(AUTHORITIES))
+			.secret(env.getProperty(CLIENT_SECRET2));
 		// @formatter:on
 	}
 
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
 		// 允许表单认证
-		oauthServer.allowFormAuthenticationForClients().accessDeniedHandler(new CornAccessDeniedHandler(objectMapper))
-//				.addTokenEndpointAuthenticationFilter(integrationAuthenticationFilter)// 无法由spring bean管理
-				
+		// @formatter:off
+		oauthServer
+			.allowFormAuthenticationForClients()
+			.accessDeniedHandler(new CornAccessDeniedHandler(objectMapper))
+//			.addTokenEndpointAuthenticationFilter(integrationAuthenticationFilter)// 无法由spring bean管理
 		;
+		// @formatter:on
 	}
 		
 	/**
@@ -88,16 +105,5 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 //		return new IntegrationAuthenticationFilter();
 //	}
 	
-//	@Bean
-//	public FilterRegistrationBean registration() {
-//	    FilterRegistrationBean registration = new FilterRegistrationBean();
-//	    registration.setFilter(new DelegatingFilterProxy("integrationAuthenticationFilter"));
-//		registrationBean.addInitParameter("targetFilterLifecycle", "true");
-//		registrationBean.addUrlPatterns("/*");
-//		registrationBean.addInitParameter("exclusions", "*.js,*.gif,*.jpg,*.png,*.css,*.ico");
-//		registrationBean.setDispatcherTypes(DispatcherType.REQUEST);
-//	    registration.setEnabled(false);
-//	    return registration;
-//
-//	}
+
 }

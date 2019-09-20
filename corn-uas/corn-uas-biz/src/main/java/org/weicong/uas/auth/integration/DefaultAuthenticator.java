@@ -33,7 +33,6 @@ public class DefaultAuthenticator extends AbstractIntegrationAuthenticator{
 		}
 		// TODO 从数据库获取权限数据
 		List<String> urList = new ArrayList<>();
-		urList.add("GET/order/{id}");
 		urList.add("GET/product/{id}");
 		List<SimpleGrantedAuthority> roles = new ArrayList<>();
 		return new CornUser(urList, sysUser.getUsername(), sysUser.getPassword(), roles);

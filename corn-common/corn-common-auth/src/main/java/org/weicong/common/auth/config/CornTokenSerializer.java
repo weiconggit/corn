@@ -1,4 +1,4 @@
-package org.weicong.uas.auth.config;
+package org.weicong.common.auth.config;
 
 import java.io.IOException;
 import java.util.HashMap;

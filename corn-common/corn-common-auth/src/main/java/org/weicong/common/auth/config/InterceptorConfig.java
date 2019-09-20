@@ -1,8 +1,5 @@
 package org.weicong.common.auth.config;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
@@ -10,35 +7,24 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.weicong.common.auth.interceptor.URLInterceptor;
 
+import lombok.AllArgsConstructor;
+
 /**
  * @description 
  * @author weicong extends WebMvcConfigurationSupport 会导致mvc自动配置失效
  * @date 2019年8月30日
  * @version 1.0
  */
+@AllArgsConstructor
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
-
+	
+	private final InterceptorConfigProperties ignoreURLs;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		InterceptorRegistration interceptor = registry.addInterceptor(new URLInterceptor());
-		// TODO weicong get data from properties
-		// formatter:off
-		List<String> list = Arrays.asList( 
-				"/admin",
-				"/js/**",
-				"/css/**",
-				"/img/**",
-				"/images/**",
-				"/fonts/**",
-				"/favicon.ico",
-				"/oauth/**",
-				"/error",
-				"/alive"
-				,"/oauth/**"
-				);
-		interceptor.excludePathPatterns(list);
-		// formatter:on
+		interceptor.excludePathPatterns(ignoreURLs.getExcludePath());
 	}
 
 

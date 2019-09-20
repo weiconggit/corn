@@ -14,10 +14,32 @@ mybatis:
    configuration:
       mapUnderscoreToCamelCase: true
       map-underscore-to-camel-case: true
-    
+ 
+corn: 
+   interceptor: 
+       exclude-path: 
+         - /js/**
+         - /css/**
+         - /img/**
+         - /images/**
+         - /fonts/**
+         - /favicon.ico
+         - /oauth/**
+         - /alive
+         - /oauth/**
+
+# 注：security.oauth2.resource.client-id 用java获取的时候会报setter错误
 security:
    oauth2:
-      resource:
+      client:
+         client-id1: client_1
+         client-secret1: 123456
+         scopes: select
+         authorities: client
+         client_id2: client_2
+         client-secret2: 123456
+      resource: 
+         id: order
          filter-order: 3
          
 #security:
