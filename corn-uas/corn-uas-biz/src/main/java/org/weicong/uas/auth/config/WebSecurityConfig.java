@@ -27,9 +27,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
-	/**
-	 * spring security basic config
-	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off

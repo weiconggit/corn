@@ -42,7 +42,6 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 	@Override
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 		// @formatter:off
-		System.err.println(env.getProperty("security.oauth2.resource.id"));
 		resources
 			.resourceId(env.getProperty("security.oauth2.resource.id"))// 资源ID
 		    .tokenServices(tokenServices())
