@@ -27,6 +27,7 @@ corn:
          - /oauth/**
          - /alive
          - /oauth/**
+         - /sys-user/register
 
 # 注：security.oauth2.resource.client-id 用java获取的时候会报setter错误
 security:

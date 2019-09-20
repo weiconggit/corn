@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.weicong.common.auth.config.CornAccessDeniedHandler;
 import org.weicong.common.auth.config.CornTokenEnhancer;
@@ -49,6 +50,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 		// @formatter:off
+		TokenStore redisTokenStore = new RedisTokenStore(redisConnectionFactory);
 		endpoints
 			.tokenStore(new RedisTokenStore(redisConnectionFactory))
 			.authenticationManager(authenticationManager)
@@ -68,19 +70,21 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		clients
 			.inMemory()
 			.withClient(env.getProperty(CLIENT_ID1))
-			.resourceIds(env.getProperty(ENV_RESOURCE_ID))
+			.secret(env.getProperty(CLIENT_SECRET1))
 			.authorizedGrantTypes("client_credentials", "refresh_token")
 			.scopes(env.getProperty(SCOPES))
 			.authorities(env.getProperty(AUTHORITIES))
-			.secret(env.getProperty(CLIENT_SECRET1))
+			.resourceIds(env.getProperty(ENV_RESOURCE_ID))
 			.and()
 			
 			.withClient(env.getProperty(CLIENT_ID2))
-			.resourceIds(env.getProperty(ENV_RESOURCE_ID))
+			.secret(env.getProperty(CLIENT_SECRET2))
 			.authorizedGrantTypes("password", "refresh_token")
 			.scopes(env.getProperty(SCOPES))
 			.authorities(env.getProperty(AUTHORITIES))
-			.secret(env.getProperty(CLIENT_SECRET2));
+			.resourceIds(env.getProperty(ENV_RESOURCE_ID))
+			.accessTokenValiditySeconds(30)
+			.refreshTokenValiditySeconds(30);
 		// @formatter:on
 	}
 

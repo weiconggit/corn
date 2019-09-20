@@ -24,7 +24,7 @@ public class SysUser implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private Integer id;
+	private int id;
 
 	@ApiModelProperty(value = "用户名")
 	private String username;
