@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @description URL鉴权拦截器
+ * @description URL动态鉴权拦截器
  * @author weicong
  * @date 2019年8月30日
  * @version 1.0

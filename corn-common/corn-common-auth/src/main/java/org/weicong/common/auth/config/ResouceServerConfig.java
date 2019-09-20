@@ -55,11 +55,11 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
-		String[] ignoreStrings = new String[ignoreURLs.getExcludePath().size()];
-		ignoreURLs.getExcludePath().toArray(ignoreStrings);
+		String[] urls = new String[ignoreURLs.getExcludePath().size()];
+		ignoreURLs.getExcludePath().toArray(urls);
 		http
 			.authorizeRequests()
-			.antMatchers(ignoreStrings).permitAll()
+			.antMatchers(urls).permitAll()
 			.anyRequest().authenticated()
 			.and().csrf().disable();
 		// @formatter:on

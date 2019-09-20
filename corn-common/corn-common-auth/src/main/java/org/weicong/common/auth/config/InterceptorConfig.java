@@ -10,7 +10,7 @@ import org.weicong.common.auth.interceptor.URLInterceptor;
 import lombok.AllArgsConstructor;
 
 /**
- * @description 
+ * @description 自定义拦截器，目前主要用户URL拦截动态鉴权
  * @author weicong extends WebMvcConfigurationSupport 会导致mvc自动配置失效
  * @date 2019年8月30日
  * @version 1.0
@@ -27,7 +27,6 @@ public class InterceptorConfig implements WebMvcConfigurer {
 		interceptor.excludePathPatterns(ignoreURLs.getExcludePath());
 	}
 
-
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		// @formatter:off
@@ -39,6 +38,4 @@ public class InterceptorConfig implements WebMvcConfigurer {
 		// @formatter:on
 	}
 
-	
-	
 }

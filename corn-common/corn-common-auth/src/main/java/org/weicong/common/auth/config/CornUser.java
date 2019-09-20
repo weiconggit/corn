@@ -5,10 +5,9 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.weicong.common.auth.constant.UserDeviceEnum;
 
 /**
- * @description 自定义oauth2用户信息
+ * @description 自定义 oauth2 用户信息
  * @author weicong
  * @date 2019年9月4日
  * @version 1.0
@@ -53,8 +52,5 @@ public class CornUser extends User {
 //	public void setDevice(UserDeviceEnum device) {
 //		this.device = device;
 //	}
-
-
 	
-
 }

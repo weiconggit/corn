@@ -43,19 +43,20 @@ public class AuthUtil {
 	public void overloadTokenCache(List<String> urList) {
 		// authentication 在oauth2本例中就是 OAuth2Authentication
 		OAuth2Authentication authentication = (OAuth2Authentication) getAuthentication();
-		// principal 存放的是 UserDetailsService.loadUserByUsername() 的自定义 User
 		CornUser userDetails = (CornUser) authentication.getPrincipal();
-		// 构造用户新权限信息
-		CornUser urlUser = new CornUser(urList, userDetails.getUsername(), authentication.getCredentials().toString(),
-				userDetails.getAuthorities());
-		// 构造用户新认证信息，credentials 一般指的是 password
-		Authentication up = new UsernamePasswordAuthenticationToken(urlUser, authentication.getCredentials().toString(),
-				userDetails.getAuthorities());
 
-		// 从 redis 中获取 access_token
+		// 1、构造用户新权限信息
+		CornUser urlUser = new CornUser(urList, userDetails.getUsername(),
+				String.valueOf(authentication.getCredentials()), userDetails.getAuthorities());
+
+		// 2、构造用户新认证信息，credentials 一般指的是 password
+		Authentication newAuthen = new UsernamePasswordAuthenticationToken(urlUser,
+				String.valueOf(authentication.getCredentials()), userDetails.getAuthorities());
+
 		OAuth2AccessToken accessToken = tokenStore.getAccessToken(authentication);
-		tokenStore.storeAccessToken(accessToken, new OAuth2Authentication(authentication.getOAuth2Request(), up));
-		SecurityContextHolder.getContext().setAuthentication(up);
+		tokenStore.storeAccessToken(accessToken,
+				new OAuth2Authentication(authentication.getOAuth2Request(), newAuthen));
+		SecurityContextHolder.getContext().setAuthentication(newAuthen);
 	}
 
 	private Authentication getAuthentication() {

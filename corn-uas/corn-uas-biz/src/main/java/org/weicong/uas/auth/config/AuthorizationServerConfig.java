@@ -91,7 +91,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		oauthServer
 			.allowFormAuthenticationForClients()
 			.accessDeniedHandler(new CornAccessDeniedHandler(objectMapper))
-//			.addTokenEndpointAuthenticationFilter(integrationAuthenticationFilter)// 无法由spring bean管理
+			//.addTokenEndpointAuthenticationFilter(integrationAuthenticationFilter)// 无法由spring bean管理
 		;
 		// @formatter:on
 	}
@@ -105,5 +105,4 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 //		return new IntegrationAuthenticationFilter();
 //	}
 	
-
 }

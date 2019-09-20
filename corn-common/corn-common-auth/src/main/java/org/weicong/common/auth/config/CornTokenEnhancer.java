@@ -5,7 +5,7 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 
 /**
- * @description
+ * @description token 自定义返回格式
  * @author weicong
  * @date 2019年8月26日
  * @version 1.0
