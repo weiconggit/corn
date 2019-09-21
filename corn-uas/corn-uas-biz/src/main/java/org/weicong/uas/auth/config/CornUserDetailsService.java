@@ -49,7 +49,7 @@ public class CornUserDetailsService implements UserDetailsService, ApplicationCo
 //		}else if (requestHeader.indexOf("windows phone") > 0){// 待验证
 //			System.out.println("windows phone");
 //		}
-		
+		System.err.println("=============-----");
 		IntegrationContext context = new IntegrationContext();
 		context.setAuthType(request.getParameter("auth_type"));
 		context.setUsername(request.getParameter("username"));

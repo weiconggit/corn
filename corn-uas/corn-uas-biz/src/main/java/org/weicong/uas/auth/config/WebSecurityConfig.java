@@ -10,6 +10,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import lombok.AllArgsConstructor;
 
 /**
  * @description 当 WebSecurityConfigurer 和 ResourceServerA 同时存在时，会被
@@ -18,20 +21,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * @date 2019年8月22日
  * @version 1.0
  */
+@AllArgsConstructor
 @EnableWebSecurity
 @Order(90)
 @Primary
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+	private final CornUserDetailsService cornUserDetailsService;
+	
 	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
+	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(cornUserDetailsService).passwordEncoder(passwordEncoder());
 	}
 
 	@Override

@@ -5,6 +5,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -36,6 +38,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	private final RedisConnectionFactory redisConnectionFactory;
 	private final CornUserDetailsService cornUserDetailsService;
 	private final Environment env;
+	private final PasswordEncoder encoder;
 	
 	private final static String ENV_CLIENT_PREFIX = "security.oauth2.client.";	
 	private final static String ENV_RESOURCE_ID = "security.oauth2.resource.id";	
@@ -70,7 +73,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		clients
 			.inMemory()
 			.withClient(env.getProperty(CLIENT_ID1))
-			.secret(env.getProperty(CLIENT_SECRET1))
+			.secret(encoder.encode(env.getProperty(CLIENT_SECRET1)))// 客户端也要加密
 			.authorizedGrantTypes("client_credentials", "refresh_token")
 			.scopes(env.getProperty(SCOPES))
 			.authorities(env.getProperty(AUTHORITIES))
@@ -78,7 +81,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 			.and()
 			
 			.withClient(env.getProperty(CLIENT_ID2))
-			.secret(env.getProperty(CLIENT_SECRET2))
+			.secret(encoder.encode(env.getProperty(CLIENT_SECRET2)))
 			.authorizedGrantTypes("password", "refresh_token")
 			.scopes(env.getProperty(SCOPES))
 			.authorities(env.getProperty(AUTHORITIES))
