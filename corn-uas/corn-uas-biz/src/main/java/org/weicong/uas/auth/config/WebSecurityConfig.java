@@ -29,12 +29,20 @@ import lombok.AllArgsConstructor;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	private final CornUserDetailsService cornUserDetailsService;
-	
+
+	/**
+	 * 密码加密器
+	 * 
+	 * @return
+	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
+	/**
+	 * 配置密码器
+	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(cornUserDetailsService).passwordEncoder(passwordEncoder());
