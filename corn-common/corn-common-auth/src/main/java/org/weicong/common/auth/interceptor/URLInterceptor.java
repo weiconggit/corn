@@ -1,5 +1,7 @@
 package org.weicong.common.auth.interceptor;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -31,13 +33,14 @@ public class URLInterceptor implements HandlerInterceptor {
 			CornUser urlUser = (CornUser) object;
 			String url = new StringBuilder(request.getMethod())
 					.append(request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE).toString()).toString();
-			for (String urlString : urlUser.getUrlList()) {
+			
+			List<String> urlList = urlUser.getUrlList();
+			for (int i = 0, size = urlList.size(); i < size; i++) {
 				// TODO DEL
-				System.err.println("urlString=" + urlString + ", url=" + url);
-				if (urlString.equals(url)) {
-					return true;
-				}
+				System.err.println("urlString=" + urlList.get(i) + ", url=" + url);
+				if (urlList.get(i).equals(url)) return true;
 			}
+			
 			log.info("URL grant denied ! urlUser:[{}], url:[{}]", urlUser, url);
 			new CornAccessDeniedHandler(new ObjectMapper()).handle(request, response, new AccessDeniedException("access denied !"));
 			return false;
