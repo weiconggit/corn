@@ -65,6 +65,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+		System.out.println(env.getProperty(CLIENT_ID2) + " 111111");
 		// 配置两个客户端,一个用于password认证一个用于client认证
 		// @formatter:off
 		clients

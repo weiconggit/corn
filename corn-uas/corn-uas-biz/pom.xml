@@ -9,12 +9,7 @@
 	</parent>
 	<artifactId>corn-uas-biz</artifactId>
 	<description>corn用户权限系统（提供用户管理、认证授权服务，ps：鉴权逻辑在 auth jar 包中）</description>
-
-	<properties>
-		<security.oauth.version>2.3.5.RELEASE</security.oauth.version>
-	</properties>
 	
-
 	<dependencies>
 		<dependency>
 			<groupId>org.weicong</groupId>
@@ -26,16 +21,12 @@
 			<artifactId>corn-common-auth</artifactId>
 			<version>0.0.1</version>
 			<exclusions>
-				<!-- MARKE weicong 待解决 直接用auth jar包中的security依赖，redis会有问题，先排除这些依赖 -->
-				<exclusion>
-					<groupId>org.springframework.cloud</groupId>
-					<artifactId>spring-cloud-starter-security</artifactId>
-				</exclusion>
+				<!-- 直接用auth jar包中的security依赖，redis会有问题，先排除这些依赖 -->
 				<exclusion>
 					<groupId>org.springframework.security.oauth</groupId>
 					<artifactId>spring-security-oauth2</artifactId>
 				</exclusion>
-				<!-- MARKE weicong base jar包中有这些依赖，排除掉 -->
+				<!-- base jar包中有这些依赖，排除掉 -->
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-data-redis</artifactId>
@@ -47,41 +38,37 @@
 			</exclusions>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.security.oauth</groupId>
+			<artifactId>spring-security-oauth2</artifactId>
+			<version>${security.oauth.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
-		<!-- spring security start-->
-		<!--spring security 、oauth依赖 -->
-		
 		<!-- sso -->
 		<dependency>
 		    <groupId>org.springframework.security.oauth.boot</groupId>
 		    <artifactId>spring-security-oauth2-autoconfigure</artifactId>
 		    <version>2.1.2.RELEASE</version>
 		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-security</artifactId>
-			<exclusions>
-				<!-- 旧版本 redis操作有问题 -->
-				<exclusion>
-					<groupId>org.springframework.security.oauth</groupId>
-					<artifactId>spring-security-oauth2</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security.oauth</groupId>
-			<artifactId>spring-security-oauth2</artifactId>
-			<version>${security.oauth.version}</version><!--$NO-MVN-MAN-VER$-->
-		</dependency>
-		<!-- spring security end-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<classifier>exec</classifier>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

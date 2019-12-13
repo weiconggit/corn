@@ -1,74 +1,21 @@
+#==========================================================
+#------------------------ 服务配置 -----------------------
+#==========================================================
 server:
    port: 9000
-    
-mybatis-plus:
-   mapper-locations:
-     - classpath:mapper/*.xml
-   type-aliases-package: org.weicong.uas.entity
-   global-config:
-      db-config:
-        logic-delete-value: 1
-        logic-not-delete-value: 0
-        
-mybatis:
-   configuration:
-      mapUnderscoreToCamelCase: true
-      map-underscore-to-camel-case: true
- 
-corn: 
-   interceptor: 
-       exclude-path: 
-         - /js/**
-         - /css/**
-         - /img/**
-         - /images/**
-         - /fonts/**
-         - /favicon.ico
-         - /oauth/**
-         - /alive
-         - /oauth/**
-         - /sys-user/register
-
-# 注：security.oauth2.resource.client-id 用java获取的时候会报setter错误
-security:
-   oauth2:
-      client:
-         client-id1: client_1
-         client-secret1: 123456
-         scopes: select
-         authorities: client
-         client_id2: client_2
-         client-secret2: 123456
-      resource: 
-         id: order
-         filter-order: 3
-         
-#security:
-# oauth2:
-#    client:
-#    resource:
-#      user-info-uri: http://localhost:8900/user
    
-eureka:
-   client:
-      # 单独运行设置为 false，集群运行设置为 true
-      register-with-eureka: false
-      fetch-registry: false
-      service-url:
-         defaultZone: http://localhost:8000/eureka/
-         
 spring:
 #   main:
 #     allow-bean-definition-overriding: true
    application:
-      name: corn-usa
+      name: corn-uas
    datasource:
       # 使用 hikari 数据库连接池
       type: com.zaxxer.hikari.HikariDataSource
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
       password: root
-      url: jdbc:mysql://localhost:3306/corn?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+      url: jdbc:mysql://127.0.0.1:3306/corn?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
       hikari:
          # 最小空闲连接数量
          minimum-idle: 5
@@ -96,3 +43,66 @@ spring:
             max-idle: 8
             min-idle: 0
             max-wait: -1
+    
+mybatis-plus:
+   mapper-locations:
+     - classpath:mapper/*.xml
+   type-aliases-package: org.weicong.uas.entity
+   global-config:
+      db-config:
+        logic-delete-value: 1
+        logic-not-delete-value: 0
+        
+mybatis:
+   configuration:
+      mapUnderscoreToCamelCase: true
+      map-underscore-to-camel-case: true
+
+#==========================================================
+#------------------------ 安全配置 -----------------------
+#==========================================================
+corn: 
+   interceptor: 
+       exclude-path: 
+         - /js/**
+         - /css/**
+         - /img/**
+         - /images/**
+         - /fonts/**
+         - /favicon.ico
+         - /oauth/**
+         - /alive
+         - /oauth/**
+         - /sys-user/register
+
+# 注：security.oauth2.resource.client-id 用java获取的时候会报setter错误
+security:
+   oauth2:
+      client:
+         client-id1: client_1
+         client-secret1: 123456
+         scopes: select
+         authorities: client
+         client-id2: client_2
+         client-secret2: 123456
+      resource: 
+         id: order
+         filter-order: 3
+         
+#security:
+# oauth2:
+#    client:
+#    resource:
+#      user-info-uri: http://localhost:8900/user
+   
+#==========================================================
+#------------------------ 集群配置 -----------------------
+#==========================================================
+eureka:
+   client:
+      # 单独运行设置为 false，集群运行设置为 true
+      register-with-eureka: true
+      fetch-registry: true
+      service-url:
+         defaultZone: http://weicong.xyz:8000/eureka/
+         

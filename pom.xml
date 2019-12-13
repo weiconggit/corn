@@ -25,6 +25,7 @@
 		<maven.encoding>UTF-8</maven.encoding>
 		<swagger.version>2.9.2</swagger.version>
 		<mybatis-plus.version>3.1.1</mybatis-plus.version>
+		<security.oauth.version>2.3.5.RELEASE</security.oauth.version>
 	</properties>
 
 	<dependencies>

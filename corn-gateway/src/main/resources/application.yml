@@ -1,16 +1,52 @@
 server:
   port: 8888
+
 spring:
   profiles:
      active: dev
   application:
-    name: corn-gateway   
-     
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8000/eureka/
-      
+    name: corn-gateway 
+  cloud:
+      gateway:
+         discovery:
+            locator:
+               # 默认为 false，为 true 便开启通过服务中心的自动根据 serviceId 创建路由的功能
+               enabled: true
+               # 将 serviceid 转为小写
+               lowerCaseServiceId: true
+         routes:
+         # 自定义的路由ID，保持唯一
+         -  id: corn-uas
+            # 目标服务地址，相同服务不同实例，格式：lb://应用注册服务名
+            uri: lb://corn-uas
+            # 路由条件
+            predicates:
+            - Path=/uas/**
+            # 过滤规则
+            filters:
+            # 将 gateway/serviceid/user/** 中的user去除
+            - StripPrefix=1
+            # 限流设置，名称必须是 RequestRateLimiter
+            - name: RequestRateLimiter
+              args:
+                # 使用 SpEL 按名称引用 bean，表示限流规则是根据ip还是指定参数
+                key-resolver: '#{@ipKeyResolver}'
+                # 允许用户每秒处理多少个请求
+                redis-rate-limiter.replenishRate: 10
+                # 令牌桶的容量，允许在一秒钟内完成的最大请求数
+                redis-rate-limiter.burstCapacity: 20
+            # 降级（熔断）处理
+            -  name: Hystrix
+               args:
+                  name: fallbackcmd
+                  # Hystrix 的 fallback 被调用时，请求将转发到URI:/fallback
+                  fallbackUri: forward:/fallback  
+
 logging:
   level:
     org.springframework.cloud.gateway: debug
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://weicong.xyz:8000/eureka/

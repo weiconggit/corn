@@ -48,5 +48,5 @@ eureka:
       register-with-eureka: false
       fetch-registry: false
       service-url:
-         defaultZone: http://localhost:8000/eureka/
+         defaultZone: http://weicong.xyz:8000/eureka/
             
