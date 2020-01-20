@@ -1,7 +1,6 @@
 package org.weicong.uas.auth.integration;
 
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
 
 /**
  * @description 附加图片验证
