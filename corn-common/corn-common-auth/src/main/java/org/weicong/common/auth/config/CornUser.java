@@ -17,8 +17,6 @@ public class CornUser extends User {
 	private static final long serialVersionUID = -7041106311015979624L;
 	
 	private List<String> urlList;
-//	private String deviceId;
-//	private UserDeviceEnum device;
 
 	public CornUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
@@ -36,21 +34,5 @@ public class CornUser extends User {
 	public void setUrlList(List<String> urlList) {
 		this.urlList = urlList;
 	}
-
-//	public String getDeviceId() {
-//		return deviceId;
-//	}
-//
-//	public void setDeviceId(String deviceId) {
-//		this.deviceId = deviceId;
-//	}
-//
-//	public UserDeviceEnum getDevice() {
-//		return device;
-//	}
-//
-//	public void setDevice(UserDeviceEnum device) {
-//		this.device = device;
-//	}
 	
 }

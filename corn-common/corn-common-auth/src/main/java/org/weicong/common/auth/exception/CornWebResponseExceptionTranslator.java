@@ -15,9 +15,6 @@ import org.springframework.security.oauth2.provider.error.WebResponseExceptionTr
 @SuppressWarnings("rawtypes")
 public class CornWebResponseExceptionTranslator implements WebResponseExceptionTranslator {
 
-	/* (non-Javadoc)
-	 * @see org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator#translate(java.lang.Exception)
-	 */
 	@Override
 	public ResponseEntity translate(Exception exception) throws Exception {
 		if (exception instanceof OAuth2Exception) {

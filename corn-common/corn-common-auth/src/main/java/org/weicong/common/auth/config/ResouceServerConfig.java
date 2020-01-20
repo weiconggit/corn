@@ -1,16 +1,9 @@
 package org.weicong.common.auth.config;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.security.access.AccessDecisionManager;
-import org.springframework.security.access.AccessDecisionVoter;
-import org.springframework.security.access.vote.AuthenticatedVoter;
-import org.springframework.security.access.vote.UnanimousBased;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -84,21 +77,6 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 		defaultTokenServices.setTokenStore(tokenStore());
 		defaultTokenServices.setTokenEnhancer(new CornTokenEnhancer());
 		return defaultTokenServices;
-	}
-
-	/**
-	 * 自定义决策器
-	 * 
-	 * @return
-	 */
-	@Deprecated
-	public AccessDecisionManager accessDecisionManager() {
-		List<AccessDecisionVoter<? extends Object>> decisionVoters = Arrays.asList(
-				// new WebExpressionVoter(),
-				// new RoleVoter(),
-				new CornAccessDecisionVoter(), 
-				new AuthenticatedVoter());
-		return new UnanimousBased(decisionVoters);
 	}
 	
 
