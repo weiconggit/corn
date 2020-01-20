@@ -18,8 +18,7 @@ public class TestEndpoints {
 		
 	@GetMapping("/alive")
     public String getProduct() {
-        //for debug
-        return "spring security test is alive";
+        return "corn sys is alive";
     }
 
 	@GetMapping("/product/{id}")

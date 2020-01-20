@@ -46,8 +46,8 @@ public class AuthUtil {
 		CornUser userDetails = (CornUser) authentication.getPrincipal();
 
 		// 1、构造用户新权限信息
-		CornUser urlUser = new CornUser(urList, userDetails.getUsername(),
-				String.valueOf(authentication.getCredentials()), userDetails.getAuthorities());
+		CornUser urlUser = new CornUser(userDetails.getUsername(),
+				String.valueOf(authentication.getCredentials()), urList, userDetails.getAuthorities());
 
 		// 2、构造用户新认证信息，credentials 一般指的是 password
 		Authentication newAuthen = new UsernamePasswordAuthenticationToken(urlUser,

@@ -22,7 +22,7 @@ public class CornUser extends User {
 		super(username, password, authorities);
 	}
 	
-	public CornUser(List<String> urlList, String username, String password, Collection<? extends GrantedAuthority> authorities) {
+	public CornUser(String username, String password, List<String> urlList, Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 		this.urlList = urlList;
 	}

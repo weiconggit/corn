@@ -29,23 +29,30 @@ public class URLInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		Object object = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		if (null != object && object instanceof CornUser) {
-			CornUser urlUser = (CornUser) object;
-			String url = new StringBuilder(request.getMethod())
-					.append(request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE).toString()).toString();
-			
-			List<String> urlList = urlUser.getUrlList();
-			for (int i = 0, size = urlList.size(); i < size; i++) {
-				// TODO DEL
-				System.err.println("urlString=" + urlList.get(i) + ", url=" + url);
-				if (urlList.get(i).equals(url)) return true;
-			}
-			
-			log.info("URL grant denied ! urlUser:[{}], url:[{}]", urlUser, url);
-			new CornAccessDeniedHandler(new ObjectMapper()).handle(request, response, new AccessDeniedException("access denied !"));
+		
+		if (null == object || !(object instanceof CornUser)) {
+			log.info("object is not instanceof CornUser !");
 			return false;
 		}
-		log.info("object not instanceof URLUser !");
+			
+		CornUser cornUser = (CornUser) object;
+		log.debug("current cornUser is [{}]", cornUser);
+		
+		String uri = new StringBuilder(request.getMethod())
+				.append(request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE).toString()).toString();
+		log.debug("current uri is [{}]", uri);
+		
+		List<String> uriList = cornUser.getUrlList();
+		
+		for (int i = 0, size = uriList.size(); i < size; i++) {
+			if (uriList.get(i).equals(uri)) {
+				log.debug("uri [{}] is true", uriList.get(i));
+				return true;
+			}
+		}
+		
+		new CornAccessDeniedHandler(new ObjectMapper()).handle(request, response, new AccessDeniedException("access denied !"));
+		
 		return false;
 	}
 

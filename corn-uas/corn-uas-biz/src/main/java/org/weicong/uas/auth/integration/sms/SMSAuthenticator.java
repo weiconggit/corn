@@ -49,7 +49,7 @@ public class SMSAuthenticator extends AbstractIntegrationAuthenticator {
 		urList.add("GET/order/{id}");
 		urList.add("GET/product/{id}");
 		List<SimpleGrantedAuthority> roles = new ArrayList<>();
-		return new CornUser(urList, sysUser.getUsername(), sysUser.getPassword(), roles);
+		return new CornUser(sysUser.getUsername(), sysUser.getPassword(), urList, roles);
 	}
 
 

@@ -6,7 +6,7 @@ import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
- * @description
+ * @description 自定义token
  * @author weicong
  * @date 2019年8月26日
  * @version 1.0
