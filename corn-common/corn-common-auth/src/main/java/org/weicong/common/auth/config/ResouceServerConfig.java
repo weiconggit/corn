@@ -12,8 +12,6 @@ import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.AllArgsConstructor;
 
 /**
@@ -27,7 +25,6 @@ import lombok.AllArgsConstructor;
 @EnableResourceServer
 public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 
-	private final ObjectMapper objectMapper;
 	private final RedisConnectionFactory redisConnectionFactory;
 	private final InterceptorConfigProperties ignoreURLs;
 	private final Environment env;
@@ -38,8 +35,8 @@ public class ResouceServerConfig extends ResourceServerConfigurerAdapter {
 		resources
 			.resourceId(env.getProperty("security.oauth2.resource.id"))// 资源ID
 		    .tokenServices(tokenServices())
-			.authenticationEntryPoint(new CornAuthenticationEntryPoint(objectMapper))
-			.accessDeniedHandler(new CornAccessDeniedHandler(objectMapper))
+			.authenticationEntryPoint(new CornAuthenticationEntryPoint())
+			.accessDeniedHandler(new CornAccessDeniedHandler())
 			;
 		// @formatter:on
 	}

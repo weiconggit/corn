@@ -15,7 +15,6 @@ import org.weicong.common.auth.constant.SecurityRpInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -25,18 +24,18 @@ import lombok.extern.slf4j.Slf4j;
  * @version 1.0  
  */
 @Slf4j
-@AllArgsConstructor
 public class CornAuthenticationEntryPoint extends OAuth2AuthenticationEntryPoint {
 
-	private final ObjectMapper objectMapper;
+	private static final ObjectMapper objectMapper = new ObjectMapper();
 	
     @Override
-    public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-		log.info("认证入口：未登录禁止访问 [{}]", httpServletRequest.getRequestURL());
-    	httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);// 403 禁止访问
-        httpServletResponse.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        httpServletResponse.setCharacterEncoding(StandardCharsets.UTF_8.toString());
-        httpServletResponse.getWriter().write(objectMapper.writeValueAsString(
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
+		log.info("未登录禁止访问 [{}]", request.getRequestURL());
+    	
+		response.setStatus(HttpServletResponse.SC_FORBIDDEN);// 403 禁止访问
+		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+		response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+		response.getWriter().write(objectMapper.writeValueAsString(
         		new SecurityRpInfo<String>(SecurityRpEnum.NO_LOGIN, e.getMessage())));
     }
 

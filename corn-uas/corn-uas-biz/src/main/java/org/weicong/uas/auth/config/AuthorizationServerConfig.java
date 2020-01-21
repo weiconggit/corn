@@ -16,8 +16,6 @@ import org.weicong.common.auth.config.CornAccessDeniedHandler;
 import org.weicong.common.auth.config.CornTokenEnhancer;
 import org.weicong.common.auth.exception.CornWebResponseExceptionTranslator;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import lombok.AllArgsConstructor;
 
 /**
@@ -31,7 +29,6 @@ import lombok.AllArgsConstructor;
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-	private final ObjectMapper objectMapper;
 	private final AuthenticationManager authenticationManager;
 	private final RedisConnectionFactory redisConnectionFactory;
 	private final CornUserDetailsService cornUserDetailsService;
@@ -95,7 +92,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		// @formatter:off
 		oauthServer
 			.allowFormAuthenticationForClients()
-			.accessDeniedHandler(new CornAccessDeniedHandler(objectMapper))
+			.accessDeniedHandler(new CornAccessDeniedHandler())
 			//.addTokenEndpointAuthenticationFilter(integrationAuthenticationFilter)// 无法由spring bean管理
 		;
 		// @formatter:on

@@ -11,19 +11,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 public abstract class AbstractIntegrationAuthenticator implements IntegrationAuthenticator {
 
 	@Override
-	public UserDetails authenticate(IntegrationContext context) {
+	public UserDetails authenticate(String username, String credentials) {
 		
 		// 1、imgValidate 图片校验码
 		
 		// 2、类型检验
-		return check(context);
+		
+		return check(username, credentials);
 	}
 
-	protected abstract UserDetails check(IntegrationContext context);
+	protected abstract UserDetails check(String username, String credentials);
 
 	@Override
-	public boolean support(IntegrationContext integrationContext) {
-		if (AuthenticationEnum.NONE == AuthenticationEnum.getAuthType(integrationContext.getAuthType())) {
+	public boolean support(String authType) {
+		if (AuthenticationEnum.NONE == AuthenticationEnum.getAuthType(authType)) {
 			return false;
 		}
 		return true;

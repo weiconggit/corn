@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.weicong.common.auth.interceptor.URLInterceptor;
+import org.weicong.common.auth.interceptor.UriInterceptor;
 
 import lombok.AllArgsConstructor;
 
@@ -19,12 +19,12 @@ import lombok.AllArgsConstructor;
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 	
-	private final InterceptorConfigProperties ignoreURLs;
+	private final InterceptorConfigProperties ignoreUris;
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		InterceptorRegistration interceptor = registry.addInterceptor(new URLInterceptor());
-		interceptor.excludePathPatterns(ignoreURLs.getExcludePath());
+		InterceptorRegistration interceptor = registry.addInterceptor(new UriInterceptor());
+		interceptor.excludePathPatterns(ignoreUris.getExcludePath());
 	}
 
 	@Override

@@ -28,9 +28,9 @@ public class DefaultAuthenticator extends AbstractIntegrationAuthenticator{
 	private final ISysUserService sysUserService;
 	
 	@Override
-	protected UserDetails check(IntegrationContext context) {
-		// obtain user info from db
-		SysUser sysUser = sysUserService.getByUsername(context.getUsername());
+	protected UserDetails check(String username, String credentials) {
+		
+		SysUser sysUser = sysUserService.getByUsername(username);
 		
 		if (null == sysUser) throw new OAuth2Exception("用户名或密码错误");
 		
@@ -38,8 +38,8 @@ public class DefaultAuthenticator extends AbstractIntegrationAuthenticator{
 		List<String> uriList = new ArrayList<>();
 		uriList.add("GET/product/{id}");
 		List<SimpleGrantedAuthority> roles = new ArrayList<>();
-		
 		log.debug("login user has authortity [{}]", uriList);
+		
 		return new CornUser(sysUser.getUsername(), sysUser.getPassword(), uriList, roles);
 	}
 

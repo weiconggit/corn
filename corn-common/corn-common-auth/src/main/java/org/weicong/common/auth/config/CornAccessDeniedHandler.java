@@ -15,7 +15,6 @@ import org.weicong.common.auth.constant.SecurityRpInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -25,15 +24,15 @@ import lombok.extern.slf4j.Slf4j;
  * @version 1.0
  */
 @Slf4j
-@AllArgsConstructor
 public class CornAccessDeniedHandler extends OAuth2AccessDeniedHandler{
 
-	private final ObjectMapper objectMapper;
+	private static final ObjectMapper objectMapper = new ObjectMapper();
 	
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
 		log.info("访问拒绝处理器：授权失败 [{}]", request.getRequestURL());
+		
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);// 401 未授权
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		response.setCharacterEncoding(StandardCharsets.UTF_8.toString());

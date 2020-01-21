@@ -15,13 +15,13 @@ public interface IntegrationAuthenticator {
      * @param 
      * @return
      */
-	UserDetails authenticate(IntegrationContext integrationContext);
+	UserDetails authenticate(String username, String credentials);
 
      /**
      * 判断是否支持集成认证类型
      * @param 
      * @return
      */
-    boolean support(IntegrationContext integrationContext);
+    boolean support(String authType);
 
 }
