@@ -117,5 +117,6 @@
 		<module>corn-uas</module>
 		<module>corn-common</module>
 		<module>corn-auth</module>
+		<module>corn-auth-test</module>
 	</modules>
 </project>
