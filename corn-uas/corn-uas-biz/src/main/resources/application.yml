@@ -1,3 +1,8 @@
+# 系统说明（后面移入到readme.md中）
+# 1 认证地址 host/oauth/token get或post(form表单)方式，
+# 参数有username,password,grant_type（认证模式）,client_id,client_secret,使用corn集成认证auth_type
+# get参数放在url中，post参数放在form body中
+
 # ~ 服务配置
 # ==========================================================
 server:
@@ -72,18 +77,22 @@ corn:
          - /oauth/**
          - /alive
          - /oauth/**
+         - /error
          - /sys-user/register
 
 # 注：security.oauth2.resource.client-id 用java获取的时候会报setter错误
 security:
    oauth2:
       client:
+         # client_credentials模式
          client-id1: client_1
          client-secret1: 123456
-         scopes: select
-         authorities: client
+         # password模式
          client-id2: client_2
          client-secret2: 123456
+         # 公共参数
+         scopes: select
+         authorities: client
       resource: 
          id: order
          filter-order: 3

@@ -4,9 +4,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
-import org.weicong.common.auth.constant.SecurityRpInfo;
 import org.weicong.common.base.constant.RpInfo;
 import org.weicong.uas.entity.SysUser;
 import org.weicong.uas.service.ISysUserService;
